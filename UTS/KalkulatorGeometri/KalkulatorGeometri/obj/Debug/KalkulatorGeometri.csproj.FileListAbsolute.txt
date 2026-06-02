@@ -1,0 +1,10 @@
+C:\Users\bajen\Downloads\Projek\KalkulatorGeometri\KalkulatorGeometri\bin\Debug\KalkulatorGeometri.exe.config
+C:\Users\bajen\Downloads\Projek\KalkulatorGeometri\KalkulatorGeometri\bin\Debug\KalkulatorGeometri.exe
+C:\Users\bajen\Downloads\Projek\KalkulatorGeometri\KalkulatorGeometri\bin\Debug\KalkulatorGeometri.pdb
+C:\Users\bajen\Downloads\Projek\KalkulatorGeometri\KalkulatorGeometri\obj\Debug\KalkulatorGeometri.csproj.AssemblyReference.cache
+C:\Users\bajen\Downloads\Projek\KalkulatorGeometri\KalkulatorGeometri\obj\Debug\KalkulatorGeometri.Form1.resources
+C:\Users\bajen\Downloads\Projek\KalkulatorGeometri\KalkulatorGeometri\obj\Debug\KalkulatorGeometri.Properties.Resources.resources
+C:\Users\bajen\Downloads\Projek\KalkulatorGeometri\KalkulatorGeometri\obj\Debug\KalkulatorGeometri.csproj.GenerateResource.cache
+C:\Users\bajen\Downloads\Projek\KalkulatorGeometri\KalkulatorGeometri\obj\Debug\KalkulatorGeometri.csproj.CoreCompileInputs.cache
+C:\Users\bajen\Downloads\Projek\KalkulatorGeometri\KalkulatorGeometri\obj\Debug\KalkulatorGeometri.exe
+C:\Users\bajen\Downloads\Projek\KalkulatorGeometri\KalkulatorGeometri\obj\Debug\KalkulatorGeometri.pdb

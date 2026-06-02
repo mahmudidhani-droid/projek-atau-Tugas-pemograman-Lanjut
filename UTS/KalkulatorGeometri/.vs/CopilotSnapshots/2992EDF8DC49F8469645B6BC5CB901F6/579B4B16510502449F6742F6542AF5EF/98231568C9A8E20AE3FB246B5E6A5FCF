@@ -1,0 +1,225 @@
+﻿namespace KalkulatorGeometri
+{
+    partial class Form1
+    {
+        private System.ComponentModel.IContainer components = null;
+
+        private System.Windows.Forms.Label lblJudul;
+        private System.Windows.Forms.ComboBox cmbBangun;
+
+        private System.Windows.Forms.Label lblSisi;
+        private System.Windows.Forms.Label lblPanjang;
+        private System.Windows.Forms.Label lblLebar;
+        private System.Windows.Forms.Label lblTinggi;
+        private System.Windows.Forms.Label lblJari;
+
+        private System.Windows.Forms.TextBox txtSisi;
+        private System.Windows.Forms.TextBox txtPanjang;
+        private System.Windows.Forms.TextBox txtLebar;
+        private System.Windows.Forms.TextBox txtTinggi;
+        private System.Windows.Forms.TextBox txtJari;
+
+        private System.Windows.Forms.Button btnHitung;
+        private System.Windows.Forms.Button btnReset;
+        private System.Windows.Forms.Button btnSorting;
+        private System.Windows.Forms.Button btnKeluar;
+
+        private System.Windows.Forms.GroupBox grpInput;
+        private System.Windows.Forms.GroupBox grpHasil;
+
+        private System.Windows.Forms.Label lblLuasText;
+        private System.Windows.Forms.Label lblKelilingText;
+        private System.Windows.Forms.Label lblVolumeText;
+
+        private System.Windows.Forms.Label lblLuas;
+        private System.Windows.Forms.Label lblKeliling;
+        private System.Windows.Forms.Label lblVolume;
+
+        private System.Windows.Forms.ListBox lstRiwayat;
+
+        protected override void Dispose(bool disposing)
+        {
+            if (disposing && (components != null))
+            {
+                components.Dispose();
+            }
+            base.Dispose(disposing);
+        }
+
+        private void InitializeComponent()
+        {
+            this.lblJudul = new System.Windows.Forms.Label();
+            this.cmbBangun = new System.Windows.Forms.ComboBox();
+
+            this.lblSisi = new System.Windows.Forms.Label();
+            this.lblPanjang = new System.Windows.Forms.Label();
+            this.lblLebar = new System.Windows.Forms.Label();
+            this.lblTinggi = new System.Windows.Forms.Label();
+            this.lblJari = new System.Windows.Forms.Label();
+
+            this.txtSisi = new System.Windows.Forms.TextBox();
+            this.txtPanjang = new System.Windows.Forms.TextBox();
+            this.txtLebar = new System.Windows.Forms.TextBox();
+            this.txtTinggi = new System.Windows.Forms.TextBox();
+            this.txtJari = new System.Windows.Forms.TextBox();
+
+            this.btnHitung = new System.Windows.Forms.Button();
+            this.btnReset = new System.Windows.Forms.Button();
+            this.btnSorting = new System.Windows.Forms.Button();
+            this.btnKeluar = new System.Windows.Forms.Button();
+
+            this.grpInput = new System.Windows.Forms.GroupBox();
+            this.grpHasil = new System.Windows.Forms.GroupBox();
+
+            this.lblLuasText = new System.Windows.Forms.Label();
+            this.lblKelilingText = new System.Windows.Forms.Label();
+            this.lblVolumeText = new System.Windows.Forms.Label();
+
+            this.lblLuas = new System.Windows.Forms.Label();
+            this.lblKeliling = new System.Windows.Forms.Label();
+            this.lblVolume = new System.Windows.Forms.Label();
+
+            this.lstRiwayat = new System.Windows.Forms.ListBox();
+
+            this.SuspendLayout();
+
+            // Form
+            this.ClientSize = new System.Drawing.Size(1000, 650);
+            this.Name = "Form1";
+            this.Text = "Kalkulator Geometri";
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
+
+            // lblJudul
+            this.lblJudul.AutoSize = true;
+            this.lblJudul.Font = new System.Drawing.Font("Segoe UI", 18F,
+            System.Drawing.FontStyle.Bold);
+            this.lblJudul.Location = new System.Drawing.Point(250, 20);
+            this.lblJudul.Text = "KALKULATOR GEOMETRI";
+
+            // grpInput
+            this.grpInput.Location = new System.Drawing.Point(20, 80);
+            this.grpInput.Size = new System.Drawing.Size(350, 300);
+            this.grpInput.Text = "Input Data";
+
+            // ComboBox
+            this.cmbBangun.Location = new System.Drawing.Point(140, 30);
+            this.cmbBangun.Size = new System.Drawing.Size(180, 25);
+            this.cmbBangun.Items.AddRange(new object[]
+            {
+                "Persegi",
+                "Persegi Panjang",
+                "Lingkaran",
+                "Segitiga",
+                "Kubus",
+                "Balok",
+                "Tabung"
+            });
+
+            System.Windows.Forms.Label lblBangun = new System.Windows.Forms.Label();
+            lblBangun.Text = "Bangun";
+            lblBangun.Location = new System.Drawing.Point(20, 30);
+
+            // Label Input
+            this.lblSisi.Text = "Sisi";
+            this.lblSisi.Location = new System.Drawing.Point(20, 70);
+
+            this.lblPanjang.Text = "Panjang";
+            this.lblPanjang.Location = new System.Drawing.Point(20, 110);
+
+            this.lblLebar.Text = "Lebar";
+            this.lblLebar.Location = new System.Drawing.Point(20, 150);
+
+            this.lblTinggi.Text = "Tinggi";
+            this.lblTinggi.Location = new System.Drawing.Point(20, 190);
+
+            this.lblJari.Text = "Jari-jari";
+            this.lblJari.Location = new System.Drawing.Point(20, 230);
+
+            // TextBox
+            this.txtSisi.Location = new System.Drawing.Point(140, 70);
+            this.txtPanjang.Location = new System.Drawing.Point(140, 110);
+            this.txtLebar.Location = new System.Drawing.Point(140, 150);
+            this.txtTinggi.Location = new System.Drawing.Point(140, 190);
+            this.txtJari.Location = new System.Drawing.Point(140, 230);
+
+            // Tambah ke grpInput
+            this.grpInput.Controls.Add(lblBangun);
+            this.grpInput.Controls.Add(this.cmbBangun);
+
+            this.grpInput.Controls.Add(this.lblSisi);
+            this.grpInput.Controls.Add(this.lblPanjang);
+            this.grpInput.Controls.Add(this.lblLebar);
+            this.grpInput.Controls.Add(this.lblTinggi);
+            this.grpInput.Controls.Add(this.lblJari);
+
+            this.grpInput.Controls.Add(this.txtSisi);
+            this.grpInput.Controls.Add(this.txtPanjang);
+            this.grpInput.Controls.Add(this.txtLebar);
+            this.grpInput.Controls.Add(this.txtTinggi);
+            this.grpInput.Controls.Add(this.txtJari);
+
+            // Tombol
+            this.btnHitung.Text = "Hitung";
+            this.btnHitung.Location = new System.Drawing.Point(20, 400);
+
+            this.btnReset.Text = "Reset";
+            this.btnReset.Location = new System.Drawing.Point(120, 400);
+
+            this.btnSorting.Text = "Sorting";
+            this.btnSorting.Location = new System.Drawing.Point(220, 400);
+
+            this.btnKeluar.Text = "Keluar";
+            this.btnKeluar.Location = new System.Drawing.Point(320, 400);
+
+            // grpHasil
+            this.grpHasil.Location = new System.Drawing.Point(400, 80);
+            this.grpHasil.Size = new System.Drawing.Size(300, 200);
+            this.grpHasil.Text = "Hasil";
+
+            this.lblLuasText.Text = "Luas";
+            this.lblLuasText.Location = new System.Drawing.Point(20, 40);
+
+            this.lblKelilingText.Text = "Keliling";
+            this.lblKelilingText.Location = new System.Drawing.Point(20, 80);
+
+            this.lblVolumeText.Text = "Volume";
+            this.lblVolumeText.Location = new System.Drawing.Point(20, 120);
+
+            this.lblLuas.Text = "0";
+            this.lblLuas.Location = new System.Drawing.Point(120, 40);
+
+            this.lblKeliling.Text = "0";
+            this.lblKeliling.Location = new System.Drawing.Point(120, 80);
+
+            this.lblVolume.Text = "0";
+            this.lblVolume.Location = new System.Drawing.Point(120, 120);
+
+            this.grpHasil.Controls.Add(this.lblLuasText);
+            this.grpHasil.Controls.Add(this.lblKelilingText);
+            this.grpHasil.Controls.Add(this.lblVolumeText);
+
+            this.grpHasil.Controls.Add(this.lblLuas);
+            this.grpHasil.Controls.Add(this.lblKeliling);
+            this.grpHasil.Controls.Add(this.lblVolume);
+
+            // ListBox Riwayat
+            this.lstRiwayat.Location = new System.Drawing.Point(400, 320);
+            this.lstRiwayat.Size = new System.Drawing.Size(500, 250);
+
+            // Tambah ke Form
+            this.Controls.Add(this.lblJudul);
+            this.Controls.Add(this.grpInput);
+
+            this.Controls.Add(this.btnHitung);
+            this.Controls.Add(this.btnReset);
+            this.Controls.Add(this.btnSorting);
+            this.Controls.Add(this.btnKeluar);
+
+            this.Controls.Add(this.grpHasil);
+            this.Controls.Add(this.lstRiwayat);
+
+            this.ResumeLayout(false);
+            this.PerformLayout();
+        }
+    }
+}
