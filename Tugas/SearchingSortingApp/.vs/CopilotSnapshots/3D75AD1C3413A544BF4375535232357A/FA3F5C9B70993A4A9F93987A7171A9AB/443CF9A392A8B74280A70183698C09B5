@@ -1,0 +1,221 @@
+﻿using System;
+using System.Collections.Generic;
+using System.Drawing;
+using System.Windows.Forms;
+
+namespace SearchingSortingApp
+{
+    public partial class Form1 : Form
+    {
+        string[] namaAwal = {
+            "Andi","Budi","Citra","Deni","Eka",
+            "Fajar","Gita","Hana","Ilham","Joko",
+            "Kiki","Lina","Miko","Nadia","Oscar",
+            "Putri","Qori","Raka","Sari","Tono",
+            "Umar","Vina","Widi","Xena","Yoga"
+        };
+
+        int[] nilaiAwal = {
+            78,55,90,42,67,
+            88,33,75,91,60,
+            48,82,55,70,39,
+            85,63,77,91,50,
+            68,44,80,57,73
+        };
+
+        // STEP STORAGE (UPGRADE)
+        List<int[]> stepsNilai = new List<int[]>();
+        List<string[]> stepsNama = new List<string[]>();
+        List<string> stepKeterangan = new List<string>();
+
+        List<int[]> stepKuning = new List<int[]>();
+        List<int[]> stepMerah = new List<int[]>();
+        List<int[]> stepHijau = new List<int[]>();
+
+        int currentStep = 0;
+
+        public Form1()
+        {
+            InitializeComponent();
+            ShowData(namaAwal, nilaiAwal);
+        }
+
+        void ShowData(string[] nama, int[] nilai)
+        {
+            dgvData.Rows.Clear();
+            for (int i = 0; i < nama.Length; i++)
+                dgvData.Rows.Add(i + 1, nama[i], nilai[i]);
+        }
+
+        // SIMPAN LANGKAH
+        void SimpanLangkah(int[] nilai, string[] nama,
+            int[] kuning, int[] merah, int[] hijau, string ket)
+        {
+            stepsNilai.Add((int[])nilai.Clone());
+            stepsNama.Add((string[])nama.Clone());
+            stepKuning.Add(kuning);
+            stepMerah.Add(merah);
+            stepHijau.Add(hijau);
+            stepKeterangan.Add(ket);
+        }
+
+        // TAMPILKAN STEP + WARNA
+        void ShowStep()
+        {
+            dgvData.Rows.Clear();
+
+            var nilai = stepsNilai[currentStep];
+            var nama = stepsNama[currentStep];
+
+            var kuning = stepKuning[currentStep];
+            var merah = stepMerah[currentStep];
+            var hijau = stepHijau[currentStep];
+
+            for (int i = 0; i < nama.Length; i++)
+            {
+                dgvData.Rows.Add(i + 1, nama[i], nilai[i]);
+
+                if (Array.IndexOf(merah, i) >= 0)
+                    dgvData.Rows[i].DefaultCellStyle.BackColor = Color.Salmon;
+                else if (Array.IndexOf(kuning, i) >= 0)
+                    dgvData.Rows[i].DefaultCellStyle.BackColor = Color.Yellow;
+                else if (Array.IndexOf(hijau, i) >= 0)
+                    dgvData.Rows[i].DefaultCellStyle.BackColor = Color.LightGreen;
+                else
+                    dgvData.Rows[i].DefaultCellStyle.BackColor = Color.White;
+            }
+
+            lblLangkah.Text = $"Langkah {currentStep + 1}";
+            lblKeterangan.Text = stepKeterangan[currentStep];
+        }
+
+        // ================= BUBBLE SORT =================
+        void Bubble()
+        {
+            stepsNilai.Clear();
+            stepsNama.Clear();
+            stepKeterangan.Clear();
+            stepKuning.Clear();
+            stepMerah.Clear();
+            stepHijau.Clear();
+
+            string[] n = (string[])namaAwal.Clone();
+            int[] v = (int[])nilaiAwal.Clone();
+
+            int perbandingan = 0;
+            int pertukaran = 0;
+
+            for (int i = 0; i < v.Length - 1; i++)
+            {
+                for (int j = 0; j < v.Length - i - 1; j++)
+                {
+                    perbandingan++;
+
+                    // KUNING (dibandingkan)
+                    SimpanLangkah(v, n,
+                        new int[] { j, j + 1 },
+                        new int[] { },
+                        new int[] { },
+                        $"Bandingkan {n[j]} ({v[j]}) dengan {n[j + 1]} ({v[j + 1]})"
+                    );
+
+                    if (v[j] > v[j + 1])
+                    {
+                        // swap
+                        int t = v[j];
+                        v[j] = v[j + 1];
+                        v[j + 1] = t;
+
+                        string s = n[j];
+                        n[j] = n[j + 1];
+                        n[j + 1] = s;
+
+                        pertukaran++;
+
+                        // MERAH (swap)
+                        SimpanLangkah(v, n,
+                            new int[] { },
+                            new int[] { j, j + 1 },
+                            new int[] { },
+                            $"Tukar {n[j]} dengan {n[j + 1]}"
+                        );
+                    }
+                }
+            }
+
+            // HIJAU (selesai)
+            int[] semua = new int[v.Length];
+            for (int i = 0; i < v.Length; i++) semua[i] = i;
+
+            SimpanLangkah(v, n,
+                new int[] { },
+                new int[] { },
+                semua,
+                $"Selesai! Perbandingan: {perbandingan}, Pertukaran: {pertukaran}"
+            );
+
+            currentStep = 0;
+            ShowStep();
+        }
+
+        // ================= SEARCH NILAI =================
+        private void btnSearch_Click(object sender, EventArgs e)
+        {
+            int cari = int.Parse(txtCari.Text);
+
+            dgvData.ClearSelection();
+
+            for (int i = 0; i < nilaiAwal.Length; i++)
+            {
+                if (nilaiAwal[i] == cari)
+                {
+                    dgvData.Rows[i].DefaultCellStyle.BackColor = Color.LightGreen;
+                }
+            }
+        }
+
+        // ================= BUTTON =================
+        private void btnBubble_Click(object sender, EventArgs e)
+        {
+            Bubble();
+        }
+
+        private void btnNext_Click(object sender, EventArgs e)
+        {
+            if (currentStep < stepsNilai.Count - 1)
+            {
+                currentStep++;
+                ShowStep();
+            }
+        }
+
+        private void btnPrev_Click(object sender, EventArgs e)
+        {
+            if (currentStep > 0)
+            {
+                currentStep--;
+                ShowStep();
+            }
+        }
+
+        private void btnSelection_Click(object sender, EventArgs e)
+        {
+            Bubble(); // sementara
+        }
+
+        private void btnInsertion_Click(object sender, EventArgs e)
+        {
+            Bubble(); // sementara
+        }
+
+        // Added missing Form1_Load handler to match Designer event wiring
+        private void Form1_Load(object sender, EventArgs e)
+        {
+            // Intentionally left blank; initialization already done in constructor
+        }
+
+        private void dgvData_CellContentClick(object sender, DataGridViewCellEventArgs e)
+        {
+        }
+    }
+}

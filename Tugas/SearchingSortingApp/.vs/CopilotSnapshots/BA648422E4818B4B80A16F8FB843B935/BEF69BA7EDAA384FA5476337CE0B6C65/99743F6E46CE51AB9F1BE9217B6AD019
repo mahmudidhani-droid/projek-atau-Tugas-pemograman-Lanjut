@@ -1,0 +1,352 @@
+﻿namespace SearchingSortingApp
+{
+    partial class Form1
+    {
+        /// <summary>
+        /// Required designer variable.
+        /// </summary>
+        private System.ComponentModel.IContainer components = null;
+
+        private System.Windows.Forms.DataGridView dgvData;
+        private System.Windows.Forms.TextBox txtCari;
+        private System.Windows.Forms.Button btnSearch;
+        private System.Windows.Forms.Button btnBubble;
+        private System.Windows.Forms.Button btnSelection;
+        private System.Windows.Forms.Button btnInsertion;
+        private System.Windows.Forms.Button btnNext;
+        private System.Windows.Forms.Button btnPrev;
+        private System.Windows.Forms.Label lblLangkah;
+        private System.Windows.Forms.Label lblKeterangan;
+        private System.Windows.Forms.Label lblPerbandingan;
+        private System.Windows.Forms.Label lblPertukaran;
+
+        /// <summary>
+        /// Clean up any resources being used.
+        /// </summary>
+        /// <param name="disposing">true if managed resources should be disposed; otherwise, false.</param>
+        protected override void Dispose(bool disposing)
+        {
+            if (disposing && (components != null))
+            {
+                components.Dispose();
+            }
+            base.Dispose(disposing);
+        }
+
+        #region Windows Form Designer generated code
+
+        /// <summary>
+        /// Required method for Designer support - do not modify
+        /// the contents of this method with the code editor.
+        /// </summary>
+        private void InitializeComponent()
+        {
+            this.dgvData = new System.Windows.Forms.DataGridView();
+            this.colNo = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.colNama = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.colNilai = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.txtCari = new System.Windows.Forms.TextBox();
+            this.btnSearch = new System.Windows.Forms.Button();
+            this.btnBubble = new System.Windows.Forms.Button();
+            this.btnSelection = new System.Windows.Forms.Button();
+            this.btnInsertion = new System.Windows.Forms.Button();
+            this.btnNext = new System.Windows.Forms.Button();
+            this.btnPrev = new System.Windows.Forms.Button();
+            this.lblLangkah = new System.Windows.Forms.Label();
+            this.lblKeterangan = new System.Windows.Forms.Label();
+            this.lblPerbandingan = new System.Windows.Forms.Label();
+            this.lblPertukaran = new System.Windows.Forms.Label();
+            this.btnAuto = new System.Windows.Forms.Button();
+            this.dgvPerbandingan = new System.Windows.Forms.DataGridView();
+            this.Algoritma = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Perbandingan = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Pertukaran = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.btnCounting = new System.Windows.Forms.Button();
+            this.btnBinary = new System.Windows.Forms.Button();
+            this.btnTabel = new System.Windows.Forms.Button();
+            ((System.ComponentModel.ISupportInitialize)(this.dgvData)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.dgvPerbandingan)).BeginInit();
+            this.SuspendLayout();
+            // 
+            // dgvData
+            // 
+            this.dgvData.AllowUserToAddRows = false;
+            this.dgvData.AllowUserToDeleteRows = false;
+            this.dgvData.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.dgvData.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
+            this.colNo,
+            this.colNama,
+            this.colNilai});
+            this.dgvData.Location = new System.Drawing.Point(12, 20);
+            this.dgvData.Name = "dgvData";
+            this.dgvData.ReadOnly = true;
+            this.dgvData.RowHeadersVisible = false;
+            this.dgvData.RowHeadersWidth = 51;
+            this.dgvData.RowTemplate.Height = 24;
+            this.dgvData.Size = new System.Drawing.Size(528, 250);
+            this.dgvData.TabIndex = 0;
+            this.dgvData.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgvData_CellContentClick);
+            // 
+            // colNo
+            // 
+            this.colNo.HeaderText = "No";
+            this.colNo.MinimumWidth = 6;
+            this.colNo.Name = "colNo";
+            this.colNo.ReadOnly = true;
+            this.colNo.Width = 50;
+            // 
+            // colNama
+            // 
+            this.colNama.HeaderText = "Nama";
+            this.colNama.MaxInputLength = 3276;
+            this.colNama.MinimumWidth = 6;
+            this.colNama.Name = "colNama";
+            this.colNama.ReadOnly = true;
+            this.colNama.Width = 250;
+            // 
+            // colNilai
+            // 
+            this.colNilai.FillWeight = 400F;
+            this.colNilai.HeaderText = "Nilai";
+            this.colNilai.MinimumWidth = 6;
+            this.colNilai.Name = "colNilai";
+            this.colNilai.ReadOnly = true;
+            this.colNilai.Width = 230;
+            // 
+            // txtCari
+            // 
+            this.txtCari.Location = new System.Drawing.Point(550, 20);
+            this.txtCari.Multiline = true;
+            this.txtCari.Name = "txtCari";
+            this.txtCari.Size = new System.Drawing.Size(175, 34);
+            this.txtCari.TabIndex = 1;
+            // 
+            // btnSearch
+            // 
+            this.btnSearch.Location = new System.Drawing.Point(740, 20);
+            this.btnSearch.Name = "btnSearch";
+            this.btnSearch.Size = new System.Drawing.Size(85, 34);
+            this.btnSearch.TabIndex = 2;
+            this.btnSearch.Text = "cari";
+            this.btnSearch.UseVisualStyleBackColor = true;
+            this.btnSearch.Click += new System.EventHandler(this.btnSearch_Click);
+            // 
+            // btnBubble
+            // 
+            this.btnBubble.Location = new System.Drawing.Point(550, 70);
+            this.btnBubble.Name = "btnBubble";
+            this.btnBubble.Size = new System.Drawing.Size(75, 37);
+            this.btnBubble.TabIndex = 3;
+            this.btnBubble.Text = "Bubble";
+            this.btnBubble.UseVisualStyleBackColor = true;
+            this.btnBubble.Click += new System.EventHandler(this.btnBubble_Click);
+            // 
+            // btnSelection
+            // 
+            this.btnSelection.Location = new System.Drawing.Point(640, 70);
+            this.btnSelection.Name = "btnSelection";
+            this.btnSelection.Size = new System.Drawing.Size(85, 37);
+            this.btnSelection.TabIndex = 4;
+            this.btnSelection.Text = "Selection";
+            this.btnSelection.UseVisualStyleBackColor = true;
+            this.btnSelection.Click += new System.EventHandler(this.btnSelection_Click);
+            // 
+            // btnInsertion
+            // 
+            this.btnInsertion.Location = new System.Drawing.Point(739, 70);
+            this.btnInsertion.Name = "btnInsertion";
+            this.btnInsertion.Size = new System.Drawing.Size(85, 34);
+            this.btnInsertion.TabIndex = 5;
+            this.btnInsertion.Text = "Insertion";
+            this.btnInsertion.UseVisualStyleBackColor = true;
+            this.btnInsertion.Click += new System.EventHandler(this.btnInsertion_Click);
+            // 
+            // btnNext
+            // 
+            this.btnNext.Location = new System.Drawing.Point(550, 166);
+            this.btnNext.Name = "btnNext";
+            this.btnNext.Size = new System.Drawing.Size(75, 30);
+            this.btnNext.TabIndex = 6;
+            this.btnNext.Text = "Next";
+            this.btnNext.UseVisualStyleBackColor = true;
+            this.btnNext.Click += new System.EventHandler(this.btnNext_Click);
+            // 
+            // btnPrev
+            // 
+            this.btnPrev.Location = new System.Drawing.Point(740, 166);
+            this.btnPrev.Name = "btnPrev";
+            this.btnPrev.Size = new System.Drawing.Size(85, 29);
+            this.btnPrev.TabIndex = 7;
+            this.btnPrev.Text = "Prev";
+            this.btnPrev.UseVisualStyleBackColor = true;
+            this.btnPrev.Click += new System.EventHandler(this.btnPrev_Click);
+            // 
+            // lblLangkah
+            // 
+            this.lblLangkah.AutoSize = true;
+            this.lblLangkah.Location = new System.Drawing.Point(550, 209);
+            this.lblLangkah.Name = "lblLangkah";
+            this.lblLangkah.Size = new System.Drawing.Size(59, 16);
+            this.lblLangkah.TabIndex = 8;
+            this.lblLangkah.Text = "Langkah";
+            this.lblLangkah.Click += new System.EventHandler(this.lblLangkah_Click);
+            // 
+            // lblKeterangan
+            // 
+            this.lblKeterangan.AutoSize = true;
+            this.lblKeterangan.Location = new System.Drawing.Point(550, 237);
+            this.lblKeterangan.Name = "lblKeterangan";
+            this.lblKeterangan.Size = new System.Drawing.Size(76, 16);
+            this.lblKeterangan.TabIndex = 9;
+            this.lblKeterangan.Text = "Keterangan";
+            // 
+            // lblPerbandingan
+            // 
+            this.lblPerbandingan.AutoSize = true;
+            this.lblPerbandingan.Location = new System.Drawing.Point(550, 270);
+            this.lblPerbandingan.Name = "lblPerbandingan";
+            this.lblPerbandingan.Size = new System.Drawing.Size(92, 16);
+            this.lblPerbandingan.TabIndex = 15;
+            this.lblPerbandingan.Text = "Perbandingan:";
+            // 
+            // lblPertukaran
+            // 
+            this.lblPertukaran.AutoSize = true;
+            this.lblPertukaran.Location = new System.Drawing.Point(550, 290);
+            this.lblPertukaran.Name = "lblPertukaran";
+            this.lblPertukaran.Size = new System.Drawing.Size(78, 16);
+            this.lblPertukaran.TabIndex = 16;
+            this.lblPertukaran.Text = "Pertukaran:";
+            // 
+            // btnAuto
+            // 
+            this.btnAuto.Location = new System.Drawing.Point(640, 166);
+            this.btnAuto.Name = "btnAuto";
+            this.btnAuto.Size = new System.Drawing.Size(85, 29);
+            this.btnAuto.TabIndex = 10;
+            this.btnAuto.Text = "Auto";
+            this.btnAuto.UseVisualStyleBackColor = true;
+            this.btnAuto.Click += new System.EventHandler(this.btnAuto_Click);
+            // 
+            // dgvPerbandingan
+            // 
+            this.dgvPerbandingan.AllowUserToAddRows = false;
+            this.dgvPerbandingan.AllowUserToDeleteRows = false;
+            this.dgvPerbandingan.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.dgvPerbandingan.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
+            this.Algoritma,
+            this.Perbandingan,
+            this.Pertukaran});
+            this.dgvPerbandingan.Location = new System.Drawing.Point(12, 276);
+            this.dgvPerbandingan.Name = "dgvPerbandingan";
+            this.dgvPerbandingan.ReadOnly = true;
+            this.dgvPerbandingan.RowHeadersVisible = false;
+            this.dgvPerbandingan.RowHeadersWidth = 51;
+            this.dgvPerbandingan.RowTemplate.Height = 24;
+            this.dgvPerbandingan.Size = new System.Drawing.Size(528, 250);
+            this.dgvPerbandingan.TabIndex = 11;
+            this.dgvPerbandingan.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridView1_CellContentClick);
+            // 
+            // Algoritma
+            // 
+            this.Algoritma.HeaderText = "Algoritma";
+            this.Algoritma.MinimumWidth = 6;
+            this.Algoritma.Name = "Algoritma";
+            this.Algoritma.ReadOnly = true;
+            this.Algoritma.Width = 175;
+            // 
+            // Perbandingan
+            // 
+            this.Perbandingan.HeaderText = "Perbandingan";
+            this.Perbandingan.MinimumWidth = 6;
+            this.Perbandingan.Name = "Perbandingan";
+            this.Perbandingan.ReadOnly = true;
+            this.Perbandingan.Width = 175;
+            // 
+            // Pertukaran
+            // 
+            this.Pertukaran.HeaderText = "Pertukaran";
+            this.Pertukaran.MinimumWidth = 6;
+            this.Pertukaran.Name = "Pertukaran";
+            this.Pertukaran.ReadOnly = true;
+            this.Pertukaran.Width = 175;
+            // 
+            // btnCounting
+            // 
+            this.btnCounting.Location = new System.Drawing.Point(550, 124);
+            this.btnCounting.Name = "btnCounting";
+            this.btnCounting.Size = new System.Drawing.Size(75, 26);
+            this.btnCounting.TabIndex = 12;
+            this.btnCounting.Text = "Counting";
+            this.btnCounting.UseVisualStyleBackColor = true;
+            this.btnCounting.Click += new System.EventHandler(this.btnCounting_Click);
+            // 
+            // btnBinary
+            // 
+            this.btnBinary.Location = new System.Drawing.Point(640, 124);
+            this.btnBinary.Name = "btnBinary";
+            this.btnBinary.Size = new System.Drawing.Size(85, 26);
+            this.btnBinary.TabIndex = 13;
+            this.btnBinary.Text = "Binary";
+            this.btnBinary.UseVisualStyleBackColor = true;
+            this.btnBinary.Click += new System.EventHandler(this.btnBinary_Click);
+            // 
+            // btnTabel
+            // 
+            this.btnTabel.Location = new System.Drawing.Point(740, 124);
+            this.btnTabel.Name = "btnTabel";
+            this.btnTabel.Size = new System.Drawing.Size(85, 26);
+            this.btnTabel.TabIndex = 14;
+            this.btnTabel.Text = "Tabel";
+            this.btnTabel.UseVisualStyleBackColor = true;
+            this.btnTabel.Click += new System.EventHandler(this.btnTabel_Click);
+            // 
+            // Form1
+            // 
+            this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
+            this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.ClientSize = new System.Drawing.Size(851, 532);
+            this.Controls.Add(this.btnTabel);
+            this.Controls.Add(this.btnBinary);
+            this.Controls.Add(this.btnCounting);
+            this.Controls.Add(this.dgvPerbandingan);
+            this.Controls.Add(this.btnAuto);
+            this.Controls.Add(this.lblKeterangan);
+            this.Controls.Add(this.lblPerbandingan);
+            this.Controls.Add(this.lblPertukaran);
+            this.Controls.Add(this.lblLangkah);
+            this.Controls.Add(this.btnPrev);
+            this.Controls.Add(this.btnNext);
+            this.Controls.Add(this.btnInsertion);
+            this.Controls.Add(this.btnSelection);
+            this.Controls.Add(this.btnBubble);
+            this.Controls.Add(this.btnSearch);
+            this.Controls.Add(this.txtCari);
+            this.Controls.Add(this.dgvData);
+            this.Name = "Form1";
+            this.Text = "Form1";
+            this.Load += new System.EventHandler(this.Form1_Load);
+            ((System.ComponentModel.ISupportInitialize)(this.dgvData)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.dgvPerbandingan)).EndInit();
+            this.ResumeLayout(false);
+            this.PerformLayout();
+
+        }
+
+        #endregion
+        private System.Windows.Forms.Button btnAuto;
+        private System.Windows.Forms.Label lblPerbandingan;
+        private System.Windows.Forms.Label lblPertukaran;
+        private System.Windows.Forms.DataGridViewTextBoxColumn colNo;
+        private System.Windows.Forms.DataGridViewTextBoxColumn colNama;
+        private System.Windows.Forms.DataGridViewTextBoxColumn colNilai;
+        private System.Windows.Forms.DataGridView dgvPerbandingan;
+        private System.Windows.Forms.DataGridViewTextBoxColumn Algoritma;
+        private System.Windows.Forms.DataGridViewTextBoxColumn Perbandingan;
+        private System.Windows.Forms.DataGridViewTextBoxColumn Pertukaran;
+        private System.Windows.Forms.Button btnCounting;
+        private System.Windows.Forms.Button btnBinary;
+        private System.Windows.Forms.Button btnTabel;
+    }
+}
+

@@ -1,0 +1,145 @@
+﻿using System;
+using System.Collections.Generic;
+using System.Drawing;
+using System.Windows.Forms;
+
+namespace SearchingSortingApp
+{
+    public partial class Form1 : Form
+    {
+        string[] namaAwal = { "Andi", "Budi", "Citra", "Dina", "Eko", "Fajar" };
+        int[] nilaiAwal = { 55, 78, 90, 62, 88, 70 };
+
+        List<string[]> stepNama = new List<string[]>();
+        List<int[]> stepNilai = new List<int[]>();
+
+        int step = 0;
+
+        public Form1()
+        {
+            InitializeComponent();
+
+            this.Text = "Sorting Nama & Nilai";
+            this.Size = new Size(400, 300);
+
+            // Show initial data from designer-created controls
+            ShowData(namaAwal, nilaiAwal);
+        }
+
+        void ShowData(string[] nama, int[] nilai)
+        {
+            dgvData.Rows.Clear();
+            for (int i = 0; i < nama.Length; i++)
+                dgvData.Rows.Add(i + 1, nama[i], nilai[i]);
+        }
+
+        void Save(string[] nama, int[] nilai)
+        {
+            stepNama.Add((string[])nama.Clone());
+            stepNilai.Add((int[])nilai.Clone());
+        }
+
+        void ShowStep()
+        {
+            if (stepNama.Count == 0 || step < 0 || step >= stepNama.Count)
+                return;
+
+            ShowData(stepNama[step], stepNilai[step]);
+            lblLangkah.Text = "Step: " + (step + 1);
+        }
+
+        void Bubble()
+        {
+            stepNama.Clear();
+            stepNilai.Clear();
+
+            string[] nama = (string[])namaAwal.Clone();
+            int[] nilai = (int[])nilaiAwal.Clone();
+
+            for (int i = 0; i < nilai.Length - 1; i++)
+            {
+                for (int j = 0; j < nilai.Length - i - 1; j++)
+                {
+                    if (nilai[j] > nilai[j + 1])
+                    {
+                        int tempNilai = nilai[j];
+                        nilai[j] = nilai[j + 1];
+                        nilai[j + 1] = tempNilai;
+
+                        string tempNama = nama[j];
+                        nama[j] = nama[j + 1];
+                        nama[j + 1] = tempNama;
+
+                        Save(nama, nilai);
+                    }
+                }
+            }
+
+            step = 0;
+            ShowStep();
+        }
+
+        // Designer expects these event handlers; implement them to call existing logic
+        private void btnBubble_Click(object sender, EventArgs e)
+        {
+            Bubble();
+        }
+
+        private void btnNext_Click(object sender, EventArgs e)
+        {
+            if (step < stepNilai.Count - 1)
+            {
+                step++;
+                ShowStep();
+            }
+        }
+
+        private void btnPrev_Click(object sender, EventArgs e)
+        {
+            if (step > 0)
+            {
+                step--;
+                ShowStep();
+            }
+        }
+
+        private void btnSelection_Click(object sender, EventArgs e)
+        {
+            // Selection sort not implemented yet; fallback to Bubble
+            Bubble();
+        }
+
+        private void btnInsertion_Click(object sender, EventArgs e)
+        {
+            // Insertion sort not implemented yet; fallback to Bubble
+            Bubble();
+        }
+
+        private void btnSearch_Click(object sender, EventArgs e)
+        {
+            // Minimal search implementation: search by name (case-insensitive) and highlight first match
+            string key = txtCari.Text?.Trim();
+            if (string.IsNullOrEmpty(key))
+                return;
+
+            for (int i = 0; i < dgvData.Rows.Count; i++)
+            {
+                var cell = dgvData.Rows[i].Cells[1];
+                if (cell.Value != null && string.Equals(cell.Value.ToString(), key, StringComparison.OrdinalIgnoreCase))
+                {
+                    dgvData.ClearSelection();
+                    dgvData.Rows[i].Selected = true;
+                    dgvData.FirstDisplayedScrollingRowIndex = i;
+                    return;
+                }
+            }
+
+            MessageBox.Show("Item not found.", "Search", MessageBoxButtons.OK, MessageBoxIcon.Information);
+        }
+
+        private void dgvData_CellContentClick(object sender, DataGridViewCellEventArgs e)
+        {
+            // No-op for now
+        }
+    }
+}

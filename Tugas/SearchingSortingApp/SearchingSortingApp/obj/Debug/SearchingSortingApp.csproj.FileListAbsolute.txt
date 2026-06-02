@@ -1,0 +1,10 @@
+C:\Users\bajen\Downloads\Projek\SearchingSortingApp\SearchingSortingApp\obj\Debug\SearchingSortingApp.csproj.AssemblyReference.cache
+C:\Users\bajen\Downloads\Projek\SearchingSortingApp\SearchingSortingApp\obj\Debug\SearchingSortingApp.Properties.Resources.resources
+C:\Users\bajen\Downloads\Projek\SearchingSortingApp\SearchingSortingApp\obj\Debug\SearchingSortingApp.csproj.GenerateResource.cache
+C:\Users\bajen\Downloads\Projek\SearchingSortingApp\SearchingSortingApp\obj\Debug\SearchingSortingApp.csproj.CoreCompileInputs.cache
+C:\Users\bajen\Downloads\Projek\SearchingSortingApp\SearchingSortingApp\bin\Debug\SearchingSortingApp.exe.config
+C:\Users\bajen\Downloads\Projek\SearchingSortingApp\SearchingSortingApp\bin\Debug\SearchingSortingApp.exe
+C:\Users\bajen\Downloads\Projek\SearchingSortingApp\SearchingSortingApp\bin\Debug\SearchingSortingApp.pdb
+C:\Users\bajen\Downloads\Projek\SearchingSortingApp\SearchingSortingApp\obj\Debug\SearchingSortingApp.exe
+C:\Users\bajen\Downloads\Projek\SearchingSortingApp\SearchingSortingApp\obj\Debug\SearchingSortingApp.pdb
+C:\Users\bajen\Downloads\Projek\SearchingSortingApp\SearchingSortingApp\obj\Debug\SearchingSortingApp.Form1.resources

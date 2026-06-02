@@ -1,0 +1,124 @@
+﻿using System;
+using System.Collections.Generic;
+using System.Drawing;
+using System.Windows.Forms;
+
+namespace SearchingSortingApp
+{
+    public class Form1 : Form
+    {
+        DataGridView dgv = new DataGridView();
+        Button btnBubble = new Button();
+        Button btnNext = new Button();
+        Button btnPrev = new Button();
+
+        Label lbl = new Label();
+
+        string[] namaAwal = { "Andi", "Budi", "Citra", "Dina", "Eko", "Fajar" };
+        int[] nilaiAwal = { 55, 78, 90, 62, 88, 70 };
+
+        List<string[]> stepNama = new List<string[]>();
+        List<int[]> stepNilai = new List<int[]>();
+
+        int step = 0;
+
+        public Form1()
+        {
+            this.Text = "Sorting Nama & Nilai";
+            this.Size = new Size(400, 300);
+
+            dgv.ColumnCount = 3;
+            dgv.Columns[0].Name = "No";
+            dgv.Columns[1].Name = "Nama";
+            dgv.Columns[2].Name = "Nilai";
+            dgv.Location = new Point(10, 10);
+            dgv.Size = new Size(360, 150);
+
+            btnBubble.Text = "Bubble Sort";
+            btnBubble.Location = new Point(10, 180);
+            btnBubble.Click += (s, e) => Bubble();
+
+            btnNext.Text = "Next";
+            btnNext.Location = new Point(130, 180);
+            btnNext.Click += (s, e) =>
+            {
+                if (step < stepNilai.Count - 1)
+                {
+                    step++;
+                    ShowStep();
+                }
+            };
+
+            btnPrev.Text = "Prev";
+            btnPrev.Location = new Point(210, 180);
+            btnPrev.Click += (s, e) =>
+            {
+                if (step > 0)
+                {
+                    step--;
+                    ShowStep();
+                }
+            };
+
+            lbl.Location = new Point(10, 220);
+
+            this.Controls.AddRange(new Control[] {
+                dgv, btnBubble, btnNext, btnPrev, lbl
+            });
+
+            ShowData(namaAwal, nilaiAwal);
+        }
+
+        void ShowData(string[] nama, int[] nilai)
+        {
+            dgv.Rows.Clear();
+            for (int i = 0; i < nama.Length; i++)
+                dgv.Rows.Add(i + 1, nama[i], nilai[i]);
+        }
+
+        void Save(string[] nama, int[] nilai)
+        {
+            stepNama.Add((string[])nama.Clone());
+            stepNilai.Add((int[])nilai.Clone());
+        }
+
+        void ShowStep()
+        {
+            ShowData(stepNama[step], stepNilai[step]);
+            lbl.Text = "Step: " + (step + 1);
+        }
+
+        void Bubble()
+        {
+            stepNama.Clear();
+            stepNilai.Clear();
+
+            string[] nama = (string[])namaAwal.Clone();
+            int[] nilai = (int[])nilaiAwal.Clone();
+
+            for (int i = 0; i < nilai.Length - 1; i++)
+            {
+                for (int j = 0; j < nilai.Length - i - 1; j++)
+                {
+                    if (nilai[j] > nilai[j + 1])
+                    {
+                        // tukar nilai
+                        int tempNilai = nilai[j];
+                        nilai[j] = nilai[j + 1];
+                        nilai[j + 1] = tempNilai;
+
+                        // tukar nama juga (PENTING)
+                        string tempNama = nama[j];
+                        nama[j] = nama[j + 1];
+                        nama[j + 1] = tempNama;
+
+                        Save(nama, nilai);
+                    }
+                }
+            }
+
+            step = 0;
+            ShowStep();
+        }
+    }
+}

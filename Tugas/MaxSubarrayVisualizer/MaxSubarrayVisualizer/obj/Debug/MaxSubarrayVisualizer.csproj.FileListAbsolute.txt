@@ -1,0 +1,10 @@
+C:\Users\bajen\Downloads\Projek\MaxSubarrayVisualizer\MaxSubarrayVisualizer\bin\Debug\MaxSubarrayVisualizer.exe.config
+C:\Users\bajen\Downloads\Projek\MaxSubarrayVisualizer\MaxSubarrayVisualizer\bin\Debug\MaxSubarrayVisualizer.exe
+C:\Users\bajen\Downloads\Projek\MaxSubarrayVisualizer\MaxSubarrayVisualizer\bin\Debug\MaxSubarrayVisualizer.pdb
+C:\Users\bajen\Downloads\Projek\MaxSubarrayVisualizer\MaxSubarrayVisualizer\obj\Debug\MaxSubarrayVisualizer.csproj.AssemblyReference.cache
+C:\Users\bajen\Downloads\Projek\MaxSubarrayVisualizer\MaxSubarrayVisualizer\obj\Debug\MaxSubarrayVisualizer.Properties.Resources.resources
+C:\Users\bajen\Downloads\Projek\MaxSubarrayVisualizer\MaxSubarrayVisualizer\obj\Debug\MaxSubarrayVisualizer.csproj.GenerateResource.cache
+C:\Users\bajen\Downloads\Projek\MaxSubarrayVisualizer\MaxSubarrayVisualizer\obj\Debug\MaxSubarrayVisualizer.csproj.CoreCompileInputs.cache
+C:\Users\bajen\Downloads\Projek\MaxSubarrayVisualizer\MaxSubarrayVisualizer\obj\Debug\MaxSubarrayVisualizer.exe
+C:\Users\bajen\Downloads\Projek\MaxSubarrayVisualizer\MaxSubarrayVisualizer\obj\Debug\MaxSubarrayVisualizer.pdb
+C:\Users\bajen\Downloads\Projek\MaxSubarrayVisualizer\MaxSubarrayVisualizer\obj\Debug\MaxSubarrayVisualizer.Form1.resources

@@ -1,0 +1,213 @@
+﻿namespace SearchingSortingApp
+{
+    partial class Form1
+    {
+        /// <summary>
+        /// Required designer variable.
+        /// </summary>
+        private System.ComponentModel.IContainer components = null;
+
+        private System.Windows.Forms.DataGridView dgvData;
+        private System.Windows.Forms.TextBox txtCari;
+        private System.Windows.Forms.Button btnSearch;
+        private System.Windows.Forms.Button btnBubble;
+        private System.Windows.Forms.Button btnSelection;
+        private System.Windows.Forms.Button btnInsertion;
+        private System.Windows.Forms.Button btnNext;
+        private System.Windows.Forms.Button btnPrev;
+        private System.Windows.Forms.Label lblLangkah;
+        private System.Windows.Forms.Label lblKeterangan;
+        private System.Windows.Forms.DataGridViewTextBoxColumn colNo;
+        private System.Windows.Forms.DataGridViewTextBoxColumn colNama;
+        private System.Windows.Forms.DataGridViewTextBoxColumn colNilai;
+
+        /// <summary>
+        /// Clean up any resources being used.
+        /// </summary>
+        /// <param name="disposing">true if managed resources should be disposed; otherwise, false.</param>
+        protected override void Dispose(bool disposing)
+        {
+            if (disposing && (components != null))
+            {
+                components.Dispose();
+            }
+            base.Dispose(disposing);
+        }
+
+        #region Windows Form Designer generated code
+
+        /// <summary>
+        /// Required method for Designer support - do not modify
+        /// the contents of this method with the code editor.
+        /// </summary>
+        private void InitializeComponent()
+        {
+            this.components = new System.ComponentModel.Container();
+            this.dgvData = new System.Windows.Forms.DataGridView();
+            this.colNo = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.colNama = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.colNilai = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.txtCari = new System.Windows.Forms.TextBox();
+            this.btnSearch = new System.Windows.Forms.Button();
+            this.btnBubble = new System.Windows.Forms.Button();
+            this.btnSelection = new System.Windows.Forms.Button();
+            this.btnInsertion = new System.Windows.Forms.Button();
+            this.btnNext = new System.Windows.Forms.Button();
+            this.btnPrev = new System.Windows.Forms.Button();
+            this.lblLangkah = new System.Windows.Forms.Label();
+            this.lblKeterangan = new System.Windows.Forms.Label();
+            ((System.ComponentModel.ISupportInitialize)(this.dgvData)).BeginInit();
+            this.SuspendLayout();
+            // 
+            // dgvData
+            // 
+            this.dgvData.AllowUserToAddRows = false;
+            this.dgvData.AllowUserToDeleteRows = false;
+            this.dgvData.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.dgvData.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
+            this.colNo,
+            this.colNama,
+            this.colNilai});
+            this.dgvData.Location = new System.Drawing.Point(12, 12);
+            this.dgvData.Name = "dgvData";
+            this.dgvData.ReadOnly = true;
+            this.dgvData.RowHeadersVisible = false;
+            this.dgvData.RowTemplate.Height = 24;
+            this.dgvData.Size = new System.Drawing.Size(520, 420);
+            this.dgvData.TabIndex = 0;
+            this.dgvData.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgvData_CellContentClick);
+            // 
+            // colNo
+            // 
+            this.colNo.HeaderText = "No";
+            this.colNo.Name = "colNo";
+            this.colNo.ReadOnly = true;
+            this.colNo.Width = 50;
+            // 
+            // colNama
+            // 
+            this.colNama.HeaderText = "Nama";
+            this.colNama.Name = "colNama";
+            this.colNama.ReadOnly = true;
+            this.colNama.Width = 300;
+            // 
+            // colNilai
+            // 
+            this.colNilai.HeaderText = "Nilai";
+            this.colNilai.Name = "colNilai";
+            this.colNilai.ReadOnly = true;
+            this.colNilai.Width = 80;
+            // 
+            // txtCari
+            // 
+            this.txtCari.Location = new System.Drawing.Point(550, 20);
+            this.txtCari.Name = "txtCari";
+            this.txtCari.Size = new System.Drawing.Size(120, 22);
+            this.txtCari.TabIndex = 1;
+            // 
+            // btnSearch
+            // 
+            this.btnSearch.Location = new System.Drawing.Point(680, 18);
+            this.btnSearch.Name = "btnSearch";
+            this.btnSearch.Size = new System.Drawing.Size(75, 25);
+            this.btnSearch.TabIndex = 2;
+            this.btnSearch.Text = "Search";
+            this.btnSearch.UseVisualStyleBackColor = true;
+            this.btnSearch.Click += new System.EventHandler(this.btnSearch_Click);
+            // 
+            // btnBubble
+            // 
+            this.btnBubble.Location = new System.Drawing.Point(550, 60);
+            this.btnBubble.Name = "btnBubble";
+            this.btnBubble.Size = new System.Drawing.Size(75, 30);
+            this.btnBubble.TabIndex = 3;
+            this.btnBubble.Text = "Bubble";
+            this.btnBubble.UseVisualStyleBackColor = true;
+            this.btnBubble.Click += new System.EventHandler(this.btnBubble_Click);
+            // 
+            // btnSelection
+            // 
+            this.btnSelection.Location = new System.Drawing.Point(640, 60);
+            this.btnSelection.Name = "btnSelection";
+            this.btnSelection.Size = new System.Drawing.Size(85, 30);
+            this.btnSelection.TabIndex = 4;
+            this.btnSelection.Text = "Selection";
+            this.btnSelection.UseVisualStyleBackColor = true;
+            this.btnSelection.Click += new System.EventHandler(this.btnSelection_Click);
+            // 
+            // btnInsertion
+            // 
+            this.btnInsertion.Location = new System.Drawing.Point(740, 60);
+            this.btnInsertion.Name = "btnInsertion";
+            this.btnInsertion.Size = new System.Drawing.Size(85, 30);
+            this.btnInsertion.TabIndex = 5;
+            this.btnInsertion.Text = "Insertion";
+            this.btnInsertion.UseVisualStyleBackColor = true;
+            this.btnInsertion.Click += new System.EventHandler(this.btnInsertion_Click);
+            // 
+            // btnNext
+            // 
+            this.btnNext.Location = new System.Drawing.Point(550, 110);
+            this.btnNext.Name = "btnNext";
+            this.btnNext.Size = new System.Drawing.Size(75, 30);
+            this.btnNext.TabIndex = 6;
+            this.btnNext.Text = "Next";
+            this.btnNext.UseVisualStyleBackColor = true;
+            this.btnNext.Click += new System.EventHandler(this.btnNext_Click);
+            // 
+            // btnPrev
+            // 
+            this.btnPrev.Location = new System.Drawing.Point(640, 110);
+            this.btnPrev.Name = "btnPrev";
+            this.btnPrev.Size = new System.Drawing.Size(75, 30);
+            this.btnPrev.TabIndex = 7;
+            this.btnPrev.Text = "Prev";
+            this.btnPrev.UseVisualStyleBackColor = true;
+            this.btnPrev.Click += new System.EventHandler(this.btnPrev_Click);
+            // 
+            // lblLangkah
+            // 
+            this.lblLangkah.AutoSize = true;
+            this.lblLangkah.Location = new System.Drawing.Point(550, 160);
+            this.lblLangkah.Name = "lblLangkah";
+            this.lblLangkah.Size = new System.Drawing.Size(63, 17);
+            this.lblLangkah.TabIndex = 8;
+            this.lblLangkah.Text = "Langkah";
+            // 
+            // lblKeterangan
+            // 
+            this.lblKeterangan.AutoSize = true;
+            this.lblKeterangan.Location = new System.Drawing.Point(550, 190);
+            this.lblKeterangan.Name = "lblKeterangan";
+            this.lblKeterangan.Size = new System.Drawing.Size(80, 17);
+            this.lblKeterangan.TabIndex = 9;
+            this.lblKeterangan.Text = "Keterangan";
+            // 
+            // Form1
+            // 
+            this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
+            this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.ClientSize = new System.Drawing.Size(851, 459);
+            this.Controls.Add(this.lblKeterangan);
+            this.Controls.Add(this.lblLangkah);
+            this.Controls.Add(this.btnPrev);
+            this.Controls.Add(this.btnNext);
+            this.Controls.Add(this.btnInsertion);
+            this.Controls.Add(this.btnSelection);
+            this.Controls.Add(this.btnBubble);
+            this.Controls.Add(this.btnSearch);
+            this.Controls.Add(this.txtCari);
+            this.Controls.Add(this.dgvData);
+            this.Name = "Form1";
+            this.Text = "Form1";
+            this.Load += new System.EventHandler(this.Form1_Load);
+            ((System.ComponentModel.ISupportInitialize)(this.dgvData)).EndInit();
+            this.ResumeLayout(false);
+            this.PerformLayout();
+
+        }
+
+        #endregion
+    }
+}
+

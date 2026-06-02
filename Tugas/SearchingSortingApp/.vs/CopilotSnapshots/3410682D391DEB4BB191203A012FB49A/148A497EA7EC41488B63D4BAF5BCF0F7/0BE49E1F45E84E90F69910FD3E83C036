@@ -1,0 +1,271 @@
+﻿using System;
+using System.Collections.Generic;
+using System.Drawing;
+using System.Linq;
+using System.Windows.Forms;
+
+namespace SearchingSortingApp
+{
+    public partial class Form1 : Form
+    {
+        DataGridView dgv = new DataGridView();
+        DataGridView dgvTabel = new DataGridView();
+
+        Button btnBubble = new Button();
+        Button btnSelection = new Button();
+        Button btnInsertion = new Button();
+        Button btnCounting = new Button();
+        Button btnSequential = new Button();
+        Button btnBinary = new Button();
+        Button btnNext = new Button();
+        Button btnPrev = new Button();
+        Button btnAuto = new Button();
+
+        TextBox txtCari = new TextBox();
+        Label lbl = new Label();
+
+        int[] data = { 78, 55, 90, 62, 88, 70 };
+        List<int[]> steps = new List<int[]>();
+        int step = 0;
+
+        int perbandingan = 0;
+        int pertukaran = 0;
+
+        Timer timer = new Timer();
+
+        public Form1()
+        {
+            this.Text = "FULL Searching Sorting App";
+            this.Size = new Size(800, 500);
+
+            // DATA GRID
+            dgv.ColumnCount = 3;
+            dgv.Columns[0].Name = "No";
+            dgv.Columns[1].Name = "Nama";
+            dgv.Columns[2].Name = "Nilai";
+            dgv.Location = new Point(10, 10);
+            dgv.Size = new Size(350, 200);
+
+            // TABEL PERBANDINGAN
+            dgvTabel.ColumnCount = 3;
+            dgvTabel.Columns[0].Name = "Algoritma";
+            dgvTabel.Columns[1].Name = "Perbandingan";
+            dgvTabel.Columns[2].Name = "Pertukaran";
+            dgvTabel.Location = new Point(400, 10);
+            dgvTabel.Size = new Size(350, 200);
+
+            // BUTTONS
+            btnBubble.Text = "Bubble"; btnBubble.Location = new Point(10, 220);
+            btnSelection.Text = "Selection"; btnSelection.Location = new Point(90, 220);
+            btnInsertion.Text = "Insertion"; btnInsertion.Location = new Point(190, 220);
+            btnCounting.Text = "Counting"; btnCounting.Location = new Point(290, 220);
+
+            btnSequential.Text = "Seq Search"; btnSequential.Location = new Point(10, 260);
+            btnBinary.Text = "Binary Search"; btnBinary.Location = new Point(120, 260);
+
+            btnNext.Text = "Next"; btnNext.Location = new Point(10, 300);
+            btnPrev.Text = "Prev"; btnPrev.Location = new Point(90, 300);
+            btnAuto.Text = "Auto"; btnAuto.Location = new Point(170, 300);
+
+            txtCari.Location = new Point(250, 260);
+
+            lbl.Location = new Point(10, 340);
+
+            // EVENTS
+            btnBubble.Click += (s, e) => Bubble();
+            btnSelection.Click += (s, e) => Selection();
+            btnInsertion.Click += (s, e) => Insertion();
+            btnCounting.Click += (s, e) => Counting();
+
+            btnSequential.Click += (s, e) => Sequential();
+            btnBinary.Click += (s, e) => Binary();
+
+            btnNext.Click += (s, e) => { if (step < steps.Count - 1) { step++; ShowStep(); } };
+            btnPrev.Click += (s, e) => { if (step > 0) { step--; ShowStep(); } };
+
+            btnAuto.Click += (s, e) => timer.Start();
+            timer.Interval = 500;
+            timer.Tick += (s, e) =>
+            {
+                if (step < steps.Count - 1)
+                {
+                    step++;
+                    ShowStep();
+                }
+                else timer.Stop();
+            };
+
+            // ADD CONTROL
+            this.Controls.AddRange(new Control[] {
+                dgv, dgvTabel,
+                btnBubble, btnSelection, btnInsertion, btnCounting,
+                btnSequential, btnBinary,
+                btnNext, btnPrev, btnAuto,
+                txtCari, lbl
+            });
+
+            ShowData(data);
+        }
+
+        void ShowData(int[] arr)
+        {
+            dgv.Rows.Clear();
+            for (int i = 0; i < arr.Length; i++)
+                dgv.Rows.Add(i + 1, "Data " + (i + 1), arr[i]);
+        }
+
+        void Save(int[] arr)
+        {
+            steps.Add((int[])arr.Clone());
+        }
+
+        void ShowStep()
+        {
+            ShowData(steps[step]);
+            lbl.Text = $"Step {step + 1} | Perbandingan: {perbandingan} | Tukar: {pertukaran}";
+        }
+
+        void Reset()
+        {
+            steps.Clear();
+            step = 0;
+            perbandingan = 0;
+            pertukaran = 0;
+        }
+
+        void Bubble()
+        {
+            Reset();
+            int[] arr = (int[])data.Clone();
+
+            for (int i = 0; i < arr.Length - 1; i++)
+                for (int j = 0; j < arr.Length - i - 1; j++)
+                {
+                    perbandingan++;
+                    if (arr[j] > arr[j + 1])
+                    {
+                        int t = arr[j];
+                        arr[j] = arr[j + 1];
+                        arr[j + 1] = t;
+                        pertukaran++;
+                        Save(arr);
+                    }
+                }
+
+            step = 0;
+            ShowStep();
+            AddTable("Bubble");
+        }
+
+        void Selection()
+        {
+            Reset();
+            int[] arr = (int[])data.Clone();
+
+            for (int i = 0; i < arr.Length - 1; i++)
+            {
+                int min = i;
+                for (int j = i + 1; j < arr.Length; j++)
+                {
+                    perbandingan++;
+                    if (arr[j] < arr[min]) min = j;
+                }
+                int t = arr[min];
+                arr[min] = arr[i];
+                arr[i] = t;
+                pertukaran++;
+                Save(arr);
+            }
+
+            step = 0;
+            ShowStep();
+            AddTable("Selection");
+        }
+
+        void Insertion()
+        {
+            Reset();
+            int[] arr = (int[])data.Clone();
+
+            for (int i = 1; i < arr.Length; i++)
+            {
+                int key = arr[i];
+                int j = i - 1;
+
+                while (j >= 0 && arr[j] > key)
+                {
+                    perbandingan++;
+                    arr[j + 1] = arr[j];
+                    j--;
+                    pertukaran++;
+                    Save(arr);
+                }
+                arr[j + 1] = key;
+                Save(arr);
+            }
+
+            step = 0;
+            ShowStep();
+            AddTable("Insertion");
+        }
+
+        void Counting()
+        {
+            Reset();
+            int max = data.Max();
+            int[] count = new int[max + 1];
+
+            foreach (var num in data)
+                count[num]++;
+
+            List<int> result = new List<int>();
+            for (int i = 0; i < count.Length; i++)
+                for (int j = 0; j < count[i]; j++)
+                    result.Add(i);
+
+            Save(result.ToArray());
+            ShowStep();
+            AddTable("Counting");
+        }
+
+        void Sequential()
+        {
+            int target = int.Parse(txtCari.Text);
+            for (int i = 0; i < data.Length; i++)
+            {
+                if (data[i] == target)
+                {
+                    MessageBox.Show("Ditemukan di index " + i);
+                    return;
+                }
+            }
+            MessageBox.Show("Tidak ditemukan");
+        }
+
+        void Binary()
+        {
+            int target = int.Parse(txtCari.Text);
+            int[] arr = (int[])data.Clone();
+            Array.Sort(arr);
+
+            int l = 0, r = arr.Length - 1;
+            while (l <= r)
+            {
+                int mid = (l + r) / 2;
+                if (arr[mid] == target)
+                {
+                    MessageBox.Show("Ditemukan");
+                    return;
+                }
+                else if (arr[mid] < target) l = mid + 1;
+                else r = mid - 1;
+            }
+            MessageBox.Show("Tidak ditemukan");
+        }
+
+        void AddTable(string nama)
+        {
+            dgvTabel.Rows.Add(nama, perbandingan, pertukaran);
+        }
+    }
+}

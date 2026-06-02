@@ -1,0 +1,203 @@
+﻿namespace SearchingSortingApp
+{
+    partial class Form1
+    {
+        /// <summary>
+        /// Required designer variable.
+        /// </summary>
+        private System.ComponentModel.IContainer components = null;
+
+        /// <summary>
+        /// Clean up any resources being used.
+        /// </summary>
+        /// <param name="disposing">true if managed resources should be disposed; otherwise, false.</param>
+        protected override void Dispose(bool disposing)
+        {
+            if (disposing && (components != null))
+            {
+                components.Dispose();
+            }
+            base.Dispose(disposing);
+        }
+
+        #region Windows Form Designer generated code
+
+        /// <summary>
+        /// Required method for Designer support - do not modify
+        /// the contents of this method with the code editor.
+        /// </summary>
+        private void InitializeComponent()
+        {
+            this.dgvData = new System.Windows.Forms.DataGridView();
+            this.colNo = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.colName = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.colValue = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.lblLangkah = new System.Windows.Forms.Label();
+            this.txtCari = new System.Windows.Forms.TextBox();
+            this.btnSearch = new System.Windows.Forms.Button();
+            this.btnBubble = new System.Windows.Forms.Button();
+            this.btnSelection = new System.Windows.Forms.Button();
+            this.btnInsertion = new System.Windows.Forms.Button();
+            this.btnPrev = new System.Windows.Forms.Button();
+            this.btnNext = new System.Windows.Forms.Button();
+            ((System.ComponentModel.ISupportInitialize)(this.dgvData)).BeginInit();
+            this.SuspendLayout();
+            // 
+            // dgvData
+            // 
+            this.dgvData.AllowUserToAddRows = false;
+            this.dgvData.AllowUserToDeleteRows = false;
+            this.dgvData.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.dgvData.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
+            this.colNo,
+            this.colName,
+            this.colValue});
+            this.dgvData.Location = new System.Drawing.Point(12, 12);
+            this.dgvData.Name = "dgvData";
+            this.dgvData.ReadOnly = true;
+            this.dgvData.RowHeadersVisible = false;
+            this.dgvData.RowHeadersWidth = 51;
+            this.dgvData.RowTemplate.Height = 24;
+            this.dgvData.Size = new System.Drawing.Size(460, 300);
+            this.dgvData.TabIndex = 0;
+            this.dgvData.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgvData_CellContentClick);
+            // 
+            // colNo
+            // 
+            this.colNo.HeaderText = "No";
+            this.colNo.MinimumWidth = 6;
+            this.colNo.Name = "colNo";
+            this.colNo.ReadOnly = true;
+            this.colNo.Width = 125;
+            // 
+            // colName
+            // 
+            this.colName.HeaderText = "Nama";
+            this.colName.MinimumWidth = 6;
+            this.colName.Name = "colName";
+            this.colName.ReadOnly = true;
+            this.colName.Width = 200;
+            // 
+            // colValue
+            // 
+            this.colValue.HeaderText = "Nilai";
+            this.colValue.MinimumWidth = 6;
+            this.colValue.Name = "colValue";
+            this.colValue.ReadOnly = true;
+            this.colValue.Width = 125;
+            // 
+            // lblLangkah
+            // 
+            this.lblLangkah.AutoSize = true;
+            this.lblLangkah.Location = new System.Drawing.Point(12, 325);
+            this.lblLangkah.Name = "lblLangkah";
+            this.lblLangkah.Size = new System.Drawing.Size(48, 16);
+            this.lblLangkah.TabIndex = 1;
+            this.lblLangkah.Text = "Step: 0";
+            // 
+            // txtCari
+            // 
+            this.txtCari.Location = new System.Drawing.Point(490, 12);
+            this.txtCari.Name = "txtCari";
+            this.txtCari.Size = new System.Drawing.Size(120, 22);
+            this.txtCari.TabIndex = 2;
+            // 
+            // btnSearch
+            // 
+            this.btnSearch.Location = new System.Drawing.Point(620, 10);
+            this.btnSearch.Name = "btnSearch";
+            this.btnSearch.Size = new System.Drawing.Size(100, 26);
+            this.btnSearch.TabIndex = 3;
+            this.btnSearch.Text = "Search";
+            this.btnSearch.UseVisualStyleBackColor = true;
+            this.btnSearch.Click += new System.EventHandler(this.btnSearch_Click);
+            // 
+            // btnBubble
+            // 
+            this.btnBubble.Location = new System.Drawing.Point(490, 60);
+            this.btnBubble.Name = "btnBubble";
+            this.btnBubble.Size = new System.Drawing.Size(100, 30);
+            this.btnBubble.TabIndex = 4;
+            this.btnBubble.Text = "Bubble";
+            this.btnBubble.UseVisualStyleBackColor = true;
+            this.btnBubble.Click += new System.EventHandler(this.btnBubble_Click);
+            // 
+            // btnSelection
+            // 
+            this.btnSelection.Location = new System.Drawing.Point(620, 60);
+            this.btnSelection.Name = "btnSelection";
+            this.btnSelection.Size = new System.Drawing.Size(100, 30);
+            this.btnSelection.TabIndex = 5;
+            this.btnSelection.Text = "Selection";
+            this.btnSelection.UseVisualStyleBackColor = true;
+            this.btnSelection.Click += new System.EventHandler(this.btnSelection_Click);
+            // 
+            // btnInsertion
+            // 
+            this.btnInsertion.Location = new System.Drawing.Point(490, 100);
+            this.btnInsertion.Name = "btnInsertion";
+            this.btnInsertion.Size = new System.Drawing.Size(100, 30);
+            this.btnInsertion.TabIndex = 6;
+            this.btnInsertion.Text = "Insertion";
+            this.btnInsertion.UseVisualStyleBackColor = true;
+            this.btnInsertion.Click += new System.EventHandler(this.btnInsertion_Click);
+            // 
+            // btnPrev
+            // 
+            this.btnPrev.Location = new System.Drawing.Point(490, 150);
+            this.btnPrev.Name = "btnPrev";
+            this.btnPrev.Size = new System.Drawing.Size(100, 30);
+            this.btnPrev.TabIndex = 7;
+            this.btnPrev.Text = "Prev";
+            this.btnPrev.UseVisualStyleBackColor = true;
+            this.btnPrev.Click += new System.EventHandler(this.btnPrev_Click);
+            // 
+            // btnNext
+            // 
+            this.btnNext.Location = new System.Drawing.Point(620, 150);
+            this.btnNext.Name = "btnNext";
+            this.btnNext.Size = new System.Drawing.Size(100, 30);
+            this.btnNext.TabIndex = 8;
+            this.btnNext.Text = "Next";
+            this.btnNext.UseVisualStyleBackColor = true;
+            this.btnNext.Click += new System.EventHandler(this.btnNext_Click);
+            // 
+            // Form1
+            // 
+            this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
+            this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.ClientSize = new System.Drawing.Size(851, 459);
+            this.Controls.Add(this.btnNext);
+            this.Controls.Add(this.btnPrev);
+            this.Controls.Add(this.btnInsertion);
+            this.Controls.Add(this.btnSelection);
+            this.Controls.Add(this.btnBubble);
+            this.Controls.Add(this.btnSearch);
+            this.Controls.Add(this.txtCari);
+            this.Controls.Add(this.lblLangkah);
+            this.Controls.Add(this.dgvData);
+            this.Name = "Form1";
+            this.Text = "Form1";
+            ((System.ComponentModel.ISupportInitialize)(this.dgvData)).EndInit();
+            this.ResumeLayout(false);
+            this.PerformLayout();
+
+        }
+
+        #endregion
+
+        private System.Windows.Forms.DataGridView dgvData;
+        private System.Windows.Forms.DataGridViewTextBoxColumn colNo;
+        private System.Windows.Forms.DataGridViewTextBoxColumn colName;
+        private System.Windows.Forms.DataGridViewTextBoxColumn colValue;
+        private System.Windows.Forms.Label lblLangkah;
+        private System.Windows.Forms.TextBox txtCari;
+        private System.Windows.Forms.Button btnSearch;
+        private System.Windows.Forms.Button btnBubble;
+        private System.Windows.Forms.Button btnSelection;
+        private System.Windows.Forms.Button btnInsertion;
+        private System.Windows.Forms.Button btnPrev;
+        private System.Windows.Forms.Button btnNext;
+    }
+}
+
