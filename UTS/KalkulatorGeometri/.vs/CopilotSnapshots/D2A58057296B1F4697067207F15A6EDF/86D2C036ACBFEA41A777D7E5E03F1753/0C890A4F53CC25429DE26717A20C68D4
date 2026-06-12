@@ -1,11 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 
 namespace KalkulatorGeometri
@@ -24,6 +17,11 @@ namespace KalkulatorGeometri
         public Form1()
         {
             InitializeComponent();
+
+            btnHitung.Click += btnHitung_Click;
+            btnReset.Click += btnReset_Click;
+            btnSorting.Click += btnSorting_Click;
+            btnKeluar.Click += btnKeluar_Click;
         }
 
         private void btnHitung_Click(object sender, EventArgs e)
@@ -198,8 +196,14 @@ namespace KalkulatorGeometri
 
         private void lstRiwayat_SelectedIndexChanged(object sender, EventArgs e)
         {
-            // Currently no behavior needed when selection changes.
-            // Keep method to satisfy Designer event subscription.
+            // Update result labels when a history item is selected (if available)
+            int idx = lstRiwayat.SelectedIndex;
+            if (idx >= 0 && idx < jumlahData)
+            {
+                lblLuas.Text = data[idx].Luas.ToString("0.00");
+                lblKeliling.Text = "0";
+                lblVolume.Text = "0";
+            }
         }
     }
 }

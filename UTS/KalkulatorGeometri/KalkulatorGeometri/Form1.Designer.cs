@@ -84,7 +84,7 @@
             this.lblJudul.Font = new System.Drawing.Font("Segoe UI", 18F, System.Drawing.FontStyle.Bold);
             this.lblJudul.Location = new System.Drawing.Point(250, 20);
             this.lblJudul.Name = "lblJudul";
-            this.lblJudul.Size = new System.Drawing.Size(296, 32);
+            this.lblJudul.Size = new System.Drawing.Size(370, 41);
             this.lblJudul.TabIndex = 0;
             this.lblJudul.Text = "KALKULATOR GEOMETRI";
             // 
@@ -100,7 +100,7 @@
             "Tabung"});
             this.cmbBangun.Location = new System.Drawing.Point(140, 30);
             this.cmbBangun.Name = "cmbBangun";
-            this.cmbBangun.Size = new System.Drawing.Size(180, 21);
+            this.cmbBangun.Size = new System.Drawing.Size(180, 24);
             this.cmbBangun.TabIndex = 1;
             // 
             // lblSisi
@@ -147,44 +147,45 @@
             // 
             this.txtSisi.Location = new System.Drawing.Point(140, 70);
             this.txtSisi.Name = "txtSisi";
-            this.txtSisi.Size = new System.Drawing.Size(100, 20);
+            this.txtSisi.Size = new System.Drawing.Size(100, 22);
             this.txtSisi.TabIndex = 7;
             // 
             // txtPanjang
             // 
             this.txtPanjang.Location = new System.Drawing.Point(140, 110);
             this.txtPanjang.Name = "txtPanjang";
-            this.txtPanjang.Size = new System.Drawing.Size(100, 20);
+            this.txtPanjang.Size = new System.Drawing.Size(100, 22);
             this.txtPanjang.TabIndex = 8;
             // 
             // txtLebar
             // 
             this.txtLebar.Location = new System.Drawing.Point(140, 150);
             this.txtLebar.Name = "txtLebar";
-            this.txtLebar.Size = new System.Drawing.Size(100, 20);
+            this.txtLebar.Size = new System.Drawing.Size(100, 22);
             this.txtLebar.TabIndex = 9;
             // 
             // txtTinggi
             // 
             this.txtTinggi.Location = new System.Drawing.Point(140, 190);
             this.txtTinggi.Name = "txtTinggi";
-            this.txtTinggi.Size = new System.Drawing.Size(100, 20);
+            this.txtTinggi.Size = new System.Drawing.Size(100, 22);
             this.txtTinggi.TabIndex = 10;
             // 
             // txtJari
             // 
             this.txtJari.Location = new System.Drawing.Point(140, 230);
             this.txtJari.Name = "txtJari";
-            this.txtJari.Size = new System.Drawing.Size(100, 20);
+            this.txtJari.Size = new System.Drawing.Size(100, 22);
             this.txtJari.TabIndex = 11;
             // 
             // btnHitung
-            // 
+            //
             this.btnHitung.Location = new System.Drawing.Point(20, 400);
             this.btnHitung.Name = "btnHitung";
             this.btnHitung.Size = new System.Drawing.Size(75, 23);
             this.btnHitung.TabIndex = 2;
             this.btnHitung.Text = "Hitung";
+            this.btnHitung.Click += new System.EventHandler(this.btnHitung_Click);
             // 
             // btnReset
             // 
@@ -193,6 +194,7 @@
             this.btnReset.Size = new System.Drawing.Size(75, 23);
             this.btnReset.TabIndex = 3;
             this.btnReset.Text = "Reset";
+            this.btnReset.Click += new System.EventHandler(this.btnReset_Click);
             // 
             // btnSorting
             // 
@@ -201,6 +203,7 @@
             this.btnSorting.Size = new System.Drawing.Size(75, 23);
             this.btnSorting.TabIndex = 4;
             this.btnSorting.Text = "Sorting";
+            this.btnSorting.Click += new System.EventHandler(this.btnSorting_Click);
             // 
             // btnKeluar
             // 
@@ -209,6 +212,7 @@
             this.btnKeluar.Size = new System.Drawing.Size(75, 23);
             this.btnKeluar.TabIndex = 5;
             this.btnKeluar.Text = "Keluar";
+            this.btnKeluar.Click += new System.EventHandler(this.btnKeluar_Click);
             // 
             // grpInput
             // 
@@ -304,10 +308,12 @@
             // 
             // lstRiwayat
             // 
+            this.lstRiwayat.ItemHeight = 16;
             this.lstRiwayat.Location = new System.Drawing.Point(400, 320);
             this.lstRiwayat.Name = "lstRiwayat";
-            this.lstRiwayat.Size = new System.Drawing.Size(500, 238);
+            this.lstRiwayat.Size = new System.Drawing.Size(500, 228);
             this.lstRiwayat.TabIndex = 7;
+            this.lstRiwayat.SelectedIndexChanged += new System.EventHandler(this.lstRiwayat_SelectedIndexChanged);
             // 
             // Form1
             // 
@@ -322,7 +328,7 @@
             this.Controls.Add(this.lstRiwayat);
             this.Name = "Form1";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
-            this.Text = "`";
+            this.Text = "Kalkulator Geometri";
             this.grpInput.ResumeLayout(false);
             this.grpInput.PerformLayout();
             this.grpHasil.ResumeLayout(false);

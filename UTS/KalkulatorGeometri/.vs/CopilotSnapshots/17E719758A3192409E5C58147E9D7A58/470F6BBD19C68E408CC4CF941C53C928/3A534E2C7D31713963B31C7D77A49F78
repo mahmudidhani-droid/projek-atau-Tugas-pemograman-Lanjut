@@ -24,6 +24,11 @@ namespace KalkulatorGeometri
         public Form1()
         {
             InitializeComponent();
+
+            btnHitung.Click += btnHitung_Click;
+            btnReset.Click += btnReset_Click;
+            btnSorting.Click += btnSorting_Click;
+            btnKeluar.Click += btnKeluar_Click;
         }
 
         private void btnHitung_Click(object sender, EventArgs e)
@@ -196,10 +201,16 @@ namespace KalkulatorGeometri
             }
         }
 
-        private void lstRiwayat_SelectedIndexChanged(object sender, EventArgs e)
+        private void InitializeComponent()
         {
-            // Currently no behavior needed when selection changes.
-            // Keep method to satisfy Designer event subscription.
+            this.SuspendLayout();
+            // 
+            // Form1
+            // 
+            this.ClientSize = new System.Drawing.Size(1089, 620);
+            this.Name = "Form1";
+            this.ResumeLayout(false);
+
         }
     }
 }
