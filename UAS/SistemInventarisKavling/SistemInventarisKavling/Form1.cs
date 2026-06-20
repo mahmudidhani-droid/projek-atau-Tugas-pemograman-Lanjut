@@ -8,10 +8,9 @@ namespace SistemInventarisKavling
     public partial class Form1 : Form
     {
         string connStr = "server=localhost;database=db_kavling;uid=root;pwd=;";
-
         MySqlConnection conn;
 
-    public Form1()
+        public Form1()
         {
             InitializeComponent();
 
@@ -139,31 +138,135 @@ namespace SistemInventarisKavling
 
         private void btnUbah_Click(object sender, EventArgs e)
         {
-            
+            try
+            {
+                conn.Open();
+
+                string query = @"UPDATE kavling SET
+            nama_kavling=@nama,
+            bentuk=@bentuk,
+            panjang=@panjang,
+            lebar=@lebar,
+            luas=@luas,
+            harga=@harga,
+            status_kavling=@status
+            WHERE id_kavling=@id";
+
+                MySqlCommand cmd =
+                    new MySqlCommand(query, conn);
+
+                cmd.Parameters.AddWithValue("@id", txtId.Text);
+                cmd.Parameters.AddWithValue("@nama", txtNama.Text);
+                cmd.Parameters.AddWithValue("@bentuk", cbBentuk.Text);
+                cmd.Parameters.AddWithValue("@panjang", txtPanjang.Text);
+                cmd.Parameters.AddWithValue("@lebar", txtLebar.Text);
+                cmd.Parameters.AddWithValue("@luas", txtLuas.Text);
+                cmd.Parameters.AddWithValue("@harga", txtHarga.Text);
+                cmd.Parameters.AddWithValue("@status", cbStatus.Text);
+
+                cmd.ExecuteNonQuery();
+
+                MessageBox.Show("Data berhasil diubah");
+
+                LoadData();
+                ResetForm();
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+            }
+            finally
+            {
+                conn.Close();
+            }
         }
 
         private void btnHapus_Click(object sender, EventArgs e)
         {
-            
+            if (MessageBox.Show(
+                "Hapus data ini?",
+                "Konfirmasi",
+                MessageBoxButtons.YesNo,
+                MessageBoxIcon.Question)
+                == DialogResult.Yes)
+            {
+                try
+                {
+                    conn.Open();
+
+                    string query =
+                        "DELETE FROM kavling WHERE id_kavling=@id";
+
+                    MySqlCommand cmd =
+                        new MySqlCommand(query, conn);
+
+                    cmd.Parameters.AddWithValue("@id", txtId.Text);
+
+                    cmd.ExecuteNonQuery();
+
+                    MessageBox.Show("Data berhasil dihapus");
+
+                    LoadData();
+                    ResetForm();
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show(ex.Message);
+                }
+                finally
+                {
+                    conn.Close();
+                }
+            }
         }
-
-
-
 
         private void btnCari_Click(object sender, EventArgs e)
         {
-            
-            
+            try
+            {
+                conn.Open();
+
+                string query = @"SELECT * FROM kavling
+            WHERE id_kavling LIKE @cari
+            OR nama_kavling LIKE @cari";
+
+                MySqlDataAdapter da =
+                    new MySqlDataAdapter(query, conn);
+
+                da.SelectCommand.Parameters.AddWithValue(
+                    "@cari",
+                    "%" + txtCari.Text + "%");
+
+                DataTable dt = new DataTable();
+
+                da.Fill(dt);
+
+                dgvKavling.DataSource = dt;
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+            }
+            finally
+            {
+                conn.Close();
+            }
         }
 
         private void btnSortLuas_Click(object sender, EventArgs e)
         {
-           
+            DataTable dt =
+                (DataTable)dgvKavling.DataSource;
+
+            dt.DefaultView.Sort = "luas DESC";
         }
 
         private void btnSortHarga_Click(object sender, EventArgs e)
         {
-           
+            DataTable dt =
+                (DataTable)dgvKavling.DataSource;
+
+            dt.DefaultView.Sort = "harga DESC";
         }
 
         private void dgvKavling_CellClick(object sender,
@@ -258,6 +361,11 @@ namespace SistemInventarisKavling
         private void textBox6_TextChanged(object sender, EventArgs e)
         {
 
+        }
+
+        private void lblTotalTerjual_Click(object sender, EventArgs e)
+        {
+            // Intentionally left empty: label click does not need to perform any action.
         }
 
         private void label1_Click(object sender, EventArgs e)

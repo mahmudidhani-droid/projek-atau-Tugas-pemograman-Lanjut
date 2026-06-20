@@ -207,6 +207,7 @@
             this.lblTotalTerjual.Size = new System.Drawing.Size(132, 23);
             this.lblTotalTerjual.TabIndex = 30;
             this.lblTotalTerjual.Text = "Total Terjual : 0";
+            this.lblTotalTerjual.Click += new System.EventHandler(this.lblTotalTerjual_Click);
             // 
             // label1
             // 
