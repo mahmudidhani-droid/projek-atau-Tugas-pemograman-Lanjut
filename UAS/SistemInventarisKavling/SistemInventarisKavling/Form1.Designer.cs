@@ -63,6 +63,11 @@
             this.lblHarga = new System.Windows.Forms.Label();
             this.lblStatus = new System.Windows.Forms.Label();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
+            this.cbFilter = new System.Windows.Forms.ComboBox();
+            this.btnPrev = new System.Windows.Forms.Button();
+            this.btnNext = new System.Windows.Forms.Button();
+            this.lblHalaman = new System.Windows.Forms.Label();
+            this.cbPageSize = new System.Windows.Forms.ComboBox();
             ((System.ComponentModel.ISupportInitialize)(this.dgvKavling)).BeginInit();
             this.groupBox1.SuspendLayout();
             this.SuspendLayout();
@@ -213,7 +218,7 @@
             // 
             this.label1.AutoSize = true;
             this.label1.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label1.Location = new System.Drawing.Point(479, 88);
+            this.label1.Location = new System.Drawing.Point(479, 60);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(156, 28);
             this.label1.TabIndex = 31;
@@ -383,11 +388,63 @@
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Input";
             // 
+            // cbFilter
+            // 
+            this.cbFilter.FormattingEnabled = true;
+            this.cbFilter.Location = new System.Drawing.Point(484, 89);
+            this.cbFilter.Name = "cbFilter";
+            this.cbFilter.Size = new System.Drawing.Size(397, 24);
+            this.cbFilter.TabIndex = 33;
+            this.cbFilter.SelectedIndexChanged += new System.EventHandler(this.cbFilter_SelectedIndexChanged);
+            // 
+            // btnPrev
+            // 
+            this.btnPrev.Location = new System.Drawing.Point(501, 440);
+            this.btnPrev.Name = "btnPrev";
+            this.btnPrev.Size = new System.Drawing.Size(75, 23);
+            this.btnPrev.TabIndex = 34;
+            this.btnPrev.Text = "Prev";
+            this.btnPrev.UseVisualStyleBackColor = true;
+            this.btnPrev.Click += new System.EventHandler(this.btnPrev_Click);
+            // 
+            // btnNext
+            // 
+            this.btnNext.Location = new System.Drawing.Point(943, 440);
+            this.btnNext.Name = "btnNext";
+            this.btnNext.Size = new System.Drawing.Size(75, 23);
+            this.btnNext.TabIndex = 35;
+            this.btnNext.Text = "Next";
+            this.btnNext.UseVisualStyleBackColor = true;
+            this.btnNext.Click += new System.EventHandler(this.btnNext_Click);
+            // 
+            // lblHalaman
+            // 
+            this.lblHalaman.AutoSize = true;
+            this.lblHalaman.Location = new System.Drawing.Point(713, 437);
+            this.lblHalaman.Name = "lblHalaman";
+            this.lblHalaman.Size = new System.Drawing.Size(62, 16);
+            this.lblHalaman.TabIndex = 36;
+            this.lblHalaman.Text = "Halaman";
+            // 
+            // cbPageSize
+            // 
+            this.cbPageSize.FormattingEnabled = true;
+            this.cbPageSize.Location = new System.Drawing.Point(943, 88);
+            this.cbPageSize.Name = "cbPageSize";
+            this.cbPageSize.Size = new System.Drawing.Size(96, 24);
+            this.cbPageSize.TabIndex = 37;
+            this.cbPageSize.SelectedIndexChanged += new System.EventHandler(this.cbPageSize_SelectedIndexChanged);
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1118, 608);
+            this.Controls.Add(this.cbPageSize);
+            this.Controls.Add(this.lblHalaman);
+            this.Controls.Add(this.btnNext);
+            this.Controls.Add(this.btnPrev);
+            this.Controls.Add(this.cbFilter);
             this.Controls.Add(this.groupBox1);
             this.Controls.Add(this.label1);
             this.Controls.Add(this.lblTotalTerjual);
@@ -449,6 +506,11 @@
         private System.Windows.Forms.Label lblHarga;
         private System.Windows.Forms.Label lblStatus;
         private System.Windows.Forms.GroupBox groupBox1;
+        private System.Windows.Forms.ComboBox cbFilter;
+        private System.Windows.Forms.Button btnPrev;
+        private System.Windows.Forms.Button btnNext;
+        private System.Windows.Forms.Label lblHalaman;
+        private System.Windows.Forms.ComboBox cbPageSize;
     }
 }
 

@@ -9,6 +9,10 @@ namespace SistemInventarisKavling
     {
         string connStr = "server=localhost;database=db_kavling;uid=root;pwd=;";
         MySqlConnection conn;
+        int currentPage = 1;
+        int pageSize = 5;
+        bool sedangFormat = false;
+
 
         public Form1()
         {
@@ -17,7 +21,9 @@ namespace SistemInventarisKavling
             conn = new MySqlConnection(connStr);
 
             txtLuas.ReadOnly = true;
-
+       
+            txtHarga.KeyPress += txtHarga_KeyPress;
+            txtHarga.TextChanged += txtHarga_TextChanged;
             btnSimpan.Click += btnSimpan_Click;
             btnUbah.Click += btnUbah_Click;
             btnHapus.Click += btnHapus_Click;
@@ -25,15 +31,31 @@ namespace SistemInventarisKavling
             btnCari.Click += btnCari_Click;
             btnSortLuas.Click += btnSortLuas_Click;
             btnSortHarga.Click += btnSortHarga_Click;
-
             dgvKavling.CellClick += dgvKavling_CellClick;
-
             txtPanjang.TextChanged += HitungLuas;
             txtLebar.TextChanged += HitungLuas;
         }
 
         private void Form1_Load(object sender, EventArgs e)
         {
+            // Filter
+            cbFilter.Items.Add("Semua Data");
+            cbFilter.Items.Add("Status: Tersedia");
+            cbFilter.Items.Add("Status: Terjual");
+            cbFilter.Items.Add("Harga Tertinggi");
+            cbFilter.Items.Add("Harga Terendah");
+
+            cbFilter.SelectedIndex = 0;
+
+            // Pagination
+            cbPageSize.Items.Add("5");
+            cbPageSize.Items.Add("10");
+            cbPageSize.Items.Add("15");
+            cbPageSize.Items.Add("20");
+            cbPageSize.Items.Add("Semua");
+            cbPageSize.SelectedIndex = 0;
+
+            lblHalaman.Text = "Halaman 1";
             LoadData();
         }
 
@@ -44,7 +66,10 @@ namespace SistemInventarisKavling
                 if (conn.State == ConnectionState.Closed)
                     conn.Open();
 
-                string query = "SELECT * FROM kavling";
+                int offset = (currentPage - 1) * pageSize;
+
+                string query =
+                $"SELECT * FROM kavling LIMIT {pageSize} OFFSET {offset}";
 
                 MySqlDataAdapter da =
                     new MySqlDataAdapter(query, conn);
@@ -54,9 +79,10 @@ namespace SistemInventarisKavling
                 da.Fill(dt);
 
                 dgvKavling.DataSource = dt;
-
+                dgvKavling.Columns["harga"].DefaultCellStyle.Format = "'Rp' #,##0";
+                dgvKavling.Columns["harga"].DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleRight;
                 dgvKavling.AutoSizeColumnsMode =
-                    DataGridViewAutoSizeColumnsMode.Fill;
+                DataGridViewAutoSizeColumnsMode.Fill;
 
                 HitungStatistik();
             }
@@ -116,7 +142,11 @@ namespace SistemInventarisKavling
                 cmd.Parameters.AddWithValue("@panjang", txtPanjang.Text);
                 cmd.Parameters.AddWithValue("@lebar", txtLebar.Text);
                 cmd.Parameters.AddWithValue("@luas", txtLuas.Text);
-                cmd.Parameters.AddWithValue("@harga", txtHarga.Text);
+                string harga = txtHarga.Text
+                               .Replace("Rp", "")
+                               .Replace(".", "")
+                               .Trim();
+                cmd.Parameters.AddWithValue("@harga", harga);
                 cmd.Parameters.AddWithValue("@status", cbStatus.Text);
 
                 cmd.ExecuteNonQuery();
@@ -343,6 +373,75 @@ namespace SistemInventarisKavling
                 "Total Tersedia : " + tersedia;
         }
 
+        private void btnNext_Click(object sender, EventArgs e)
+        {
+            conn.Open();
+
+            string query = "SELECT COUNT(*) FROM kavling";
+
+            MySqlCommand cmd = new MySqlCommand(query, conn);
+
+            int totalData = Convert.ToInt32(cmd.ExecuteScalar());
+
+            conn.Close();
+
+            int totalHalaman = (int)Math.Ceiling((double)totalData / pageSize);
+
+            if (currentPage < totalHalaman)
+            {
+                currentPage++;
+
+                lblHalaman.Text = "Halaman " + currentPage;
+
+                LoadData();
+            }
+        }
+
+        private void btnPrev_Click(object sender, EventArgs e)
+        {
+            if (currentPage > 1)
+            {
+                currentPage--;
+
+                lblHalaman.Text = "Halaman " + currentPage;
+
+                LoadData();
+            }
+        }
+
+        private void txtHarga_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            // Hanya boleh angka dan Backspace
+            if (!char.IsControl(e.KeyChar) && !char.IsDigit(e.KeyChar))
+            {
+                e.Handled = true;
+            }
+        }
+
+        private void txtHarga_TextChanged(object sender, EventArgs e)
+        {
+            if (sedangFormat) return;
+
+            sedangFormat = true;
+
+            string angka = txtHarga.Text.Replace("Rp", "")
+                                        .Replace(".", "")
+                                        .Replace(" ", "");
+
+            if (decimal.TryParse(angka, out decimal harga))
+            {
+                txtHarga.Text = "Rp " + harga.ToString("N0");
+                txtHarga.SelectionStart = txtHarga.Text.Length;
+            }
+            else
+            {
+                txtHarga.Clear();
+            }
+
+            sedangFormat = false;
+        }
+
+
         private void dgvKavling_CellContentClick(object sender, DataGridViewCellEventArgs e)
         {
 
@@ -373,5 +472,74 @@ namespace SistemInventarisKavling
 
         }
 
+        private void cbFilter_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            currentPage = 1;
+            lblHalaman.Text = "Halaman 1";
+
+            try
+            {
+                conn.Open();
+
+                int offset = (currentPage - 1) * pageSize;
+
+                string query = "SELECT * FROM kavling";
+
+                switch (cbFilter.Text)
+                {
+                    case "Semua Data":
+                        break;
+
+                    case "Status: Tersedia":
+                        query += " WHERE status_kavling='Tersedia'";
+                        break;
+
+                    case "Status: Terjual":
+                        query += " WHERE status_kavling='Terjual'";
+                        break;
+
+                    case "Harga Tertinggi":
+                        query += " ORDER BY harga DESC";
+                        break;
+
+                    case "Harga Terendah":
+                        query += " ORDER BY harga ASC";
+                        break;
+                }
+
+                // Tambahkan pagination
+                query += $" LIMIT {pageSize} OFFSET {offset}";
+
+                MySqlDataAdapter da = new MySqlDataAdapter(query, conn);
+                DataTable dt = new DataTable();
+
+                da.Fill(dt);
+
+                dgvKavling.DataSource = dt;
+
+                lblHalaman.Text = "Halaman " + currentPage;
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+            }
+            finally
+            {
+                conn.Close();
+            }
+        }
+
+        private void cbPageSize_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            if (cbPageSize.Text == "Semua")
+                pageSize = 999999;
+            else
+                pageSize = Convert.ToInt32(cbPageSize.Text);
+
+            currentPage = 1;
+            lblHalaman.Text = "Halaman 1";
+
+            LoadData();
+        }
     }
 }
