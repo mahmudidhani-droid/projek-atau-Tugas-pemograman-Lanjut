@@ -1,8 +1,7 @@
-﻿using MySqlConnector;
-using System;
+﻿using System;
 using System.Data;
-using System.Globalization;
 using System.Windows.Forms;
+using MySqlConnector;
 
 namespace SistemInventarisKavling
 {
@@ -24,9 +23,7 @@ namespace SistemInventarisKavling
             txtLuas.ReadOnly = true;
        
             txtHarga.KeyPress += txtHarga_KeyPress;
-            txtHarga.Leave += txtHarga_Leave;
             txtHarga.TextChanged += txtHarga_TextChanged;
-            txtHarga.Enter += txtHarga_Enter;
             btnSimpan.Click += btnSimpan_Click;
             btnUbah.Click += btnUbah_Click;
             btnHapus.Click += btnHapus_Click;
@@ -84,9 +81,8 @@ namespace SistemInventarisKavling
                 dgvKavling.DataSource = dt;
                 dgvKavling.Columns["harga"].DefaultCellStyle.Format = "'Rp' #,##0";
                 dgvKavling.Columns["harga"].DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleRight;
-                dgvKavling.Columns["harga"].Width = 150;
                 dgvKavling.AutoSizeColumnsMode =
-                DataGridViewAutoSizeColumnsMode.AllCells;
+                DataGridViewAutoSizeColumnsMode.Fill;
 
                 HitungStatistik();
             }
@@ -126,8 +122,6 @@ namespace SistemInventarisKavling
             txtId.Focus();
         }
 
-      
-
         private void btnSimpan_Click(object sender, EventArgs e)
         {
             try
@@ -149,16 +143,16 @@ namespace SistemInventarisKavling
                 cmd.Parameters.AddWithValue("@lebar", txtLebar.Text);
                 cmd.Parameters.AddWithValue("@luas", txtLuas.Text);
                 string harga = txtHarga.Text
-                              .Replace("Rp", "")
-                              .Replace(".", "")
-                              .Replace(",", "")
-                              .Trim();
+                               .Replace("Rp", "")
+                               .Replace(".", "")
+                               .Trim();
                 cmd.Parameters.AddWithValue("@harga", harga);
                 cmd.Parameters.AddWithValue("@status", cbStatus.Text);
 
                 cmd.ExecuteNonQuery();
 
                 MessageBox.Show("Data berhasil disimpan");
+
                 LoadData();
                 ResetForm();
             }
@@ -197,23 +191,19 @@ namespace SistemInventarisKavling
                 cmd.Parameters.AddWithValue("@panjang", txtPanjang.Text);
                 cmd.Parameters.AddWithValue("@lebar", txtLebar.Text);
                 cmd.Parameters.AddWithValue("@luas", txtLuas.Text);
-
-                string harga = txtHarga.Text
-                               .Replace("Rp", "")
-                               .Replace(".", "")
-                               .Replace(",", "")
-                               .Trim();
-
-                cmd.Parameters.AddWithValue("@harga", harga);
+                cmd.Parameters.AddWithValue("@harga", txtHarga.Text);
                 cmd.Parameters.AddWithValue("@status", cbStatus.Text);
+
                 cmd.ExecuteNonQuery();
-               
+
+                MessageBox.Show("Data berhasil diubah");
+
                 LoadData();
                 ResetForm();
             }
             catch (Exception ex)
             {
-                MessageBox.Show("Gagal mengubah data: " + ex.Message);
+                MessageBox.Show(ex.Message);
             }
             finally
             {
@@ -309,30 +299,37 @@ namespace SistemInventarisKavling
             dt.DefaultView.Sort = "harga DESC";
         }
 
-        private void dgvKavling_CellClick(object sender, DataGridViewCellEventArgs e)
+        private void dgvKavling_CellClick(object sender,
+            DataGridViewCellEventArgs e)
         {
             if (e.RowIndex >= 0)
             {
-                DataGridViewRow row = dgvKavling.Rows[e.RowIndex];
+                DataGridViewRow row =
+                    dgvKavling.Rows[e.RowIndex];
 
-                txtId.Text = row.Cells["id_kavling"].Value.ToString();
-                txtNama.Text = row.Cells["nama_kavling"].Value.ToString();
-                cbBentuk.Text = row.Cells["bentuk"].Value.ToString();
-                txtPanjang.Text = row.Cells["panjang"].Value.ToString();
-                txtLebar.Text = row.Cells["lebar"].Value.ToString();
-                txtLuas.Text = row.Cells["luas"].Value.ToString();
+                txtId.Text =
+                    row.Cells["id_kavling"].Value.ToString();
 
-                if (row.Cells["harga"].Value != DBNull.Value)
-                {
-                    decimal harga = Convert.ToDecimal(row.Cells["harga"].Value);
-                    txtHarga.Text = "Rp " + harga.ToString("N0", new CultureInfo("id-ID"));
-                }
-                else
-                {
-                    txtHarga.Text = "";
-                }
+                txtNama.Text =
+                    row.Cells["nama_kavling"].Value.ToString();
 
-                cbStatus.Text = row.Cells["status_kavling"].Value.ToString();
+                cbBentuk.Text =
+                    row.Cells["bentuk"].Value.ToString();
+
+                txtPanjang.Text =
+                    row.Cells["panjang"].Value.ToString();
+
+                txtLebar.Text =
+                    row.Cells["lebar"].Value.ToString();
+
+                txtLuas.Text =
+                    row.Cells["luas"].Value.ToString();
+
+                txtHarga.Text =
+                    row.Cells["harga"].Value.ToString();
+
+                cbStatus.Text =
+                    row.Cells["status_kavling"].Value.ToString();
             }
         }
 
@@ -421,11 +418,33 @@ namespace SistemInventarisKavling
             }
         }
 
-       
+        private void txtHarga_TextChanged(object sender, EventArgs e)
+        {
+            if (sedangFormat) return;
+
+            sedangFormat = true;
+
+            string angka = txtHarga.Text.Replace("Rp", "")
+                                        .Replace(".", "")
+                                        .Replace(" ", "");
+
+            if (decimal.TryParse(angka, out decimal harga))
+            {
+                txtHarga.Text = "Rp " + harga.ToString("N0");
+                txtHarga.SelectionStart = txtHarga.Text.Length;
+            }
+            else
+            {
+                txtHarga.Clear();
+            }
+
+            sedangFormat = false;
+        }
+
 
         private void dgvKavling_CellContentClick(object sender, DataGridViewCellEventArgs e)
         {
-            
+
         }
 
         private void btnReset_Click(object sender, EventArgs e)
@@ -521,93 +540,6 @@ namespace SistemInventarisKavling
             lblHalaman.Text = "Halaman 1";
 
             LoadData();
-        }
-        private void txtHarga_Leave(object sender, EventArgs e)
-        {
-            string angka = txtHarga.Text
-                .Replace(".", "")
-                .Replace(",", "")
-                .Replace("Rp", "")
-                .Trim();
-
-            if (decimal.TryParse(angka, out decimal harga))
-            {
-                sedangFormat = true;
-                txtHarga.Text = "Rp " + harga.ToString("N0", new CultureInfo("id-ID"));
-                sedangFormat = false;
-            }
-        }
-
-        private void txtHarga_TextChanged(object sender, EventArgs e)
-        {
-            if (sedangFormat) return;
-
-            sedangFormat = true;
-
-            int posisiCursor = txtHarga.SelectionStart;
-
-            string angka = "";
-
-            for (int i = 0; i < txtHarga.Text.Length; i++)
-            {
-                if (char.IsDigit(txtHarga.Text[i]))
-                    angka += txtHarga.Text[i];
-            }
-
-            if (angka == "")
-            {
-                txtHarga.Text = "";
-                sedangFormat = false;
-                return;
-            }
-
-            decimal nilai = decimal.Parse(angka);
-
-            string hasil = nilai.ToString("N0", new CultureInfo("id-ID"));
-
-            int jumlahAngkaKiri = 0;
-
-            for (int i = 0; i < posisiCursor && i < txtHarga.Text.Length; i++)
-            {
-                if (char.IsDigit(txtHarga.Text[i]))
-                    jumlahAngkaKiri++;
-            }
-
-            txtHarga.Text = hasil;
-
-            posisiCursor = 0;
-            int hitung = 0;
-
-            while (posisiCursor < txtHarga.Text.Length)
-            {
-                if (char.IsDigit(txtHarga.Text[posisiCursor]))
-                    hitung++;
-
-                posisiCursor++;
-
-                if (hitung == jumlahAngkaKiri)
-                    break;
-            }
-
-            txtHarga.SelectionStart = posisiCursor;
-
-            sedangFormat = false;
-        }
-
-        private void lblHarga_Click(object sender, EventArgs e)
-        {
-
-        }
-
-        private void groupBox1_Enter(object sender, EventArgs e)
-        {
-
-        }
-        private void txtHarga_Enter(object sender, EventArgs e)
-        {
-            txtHarga.Text = txtHarga.Text.Replace("Rp", "").Trim();
-
-            txtHarga.SelectionStart = txtHarga.Text.Length;
         }
     }
 }

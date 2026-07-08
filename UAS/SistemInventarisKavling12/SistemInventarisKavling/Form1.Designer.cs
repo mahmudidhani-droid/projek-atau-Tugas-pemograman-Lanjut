@@ -353,7 +353,6 @@
             this.lblHarga.Size = new System.Drawing.Size(100, 20);
             this.lblHarga.TabIndex = 23;
             this.lblHarga.Text = "Harga";
-            this.lblHarga.Click += new System.EventHandler(this.lblHarga_Click);
             // 
             // lblStatus
             // 
@@ -388,7 +387,6 @@
             this.groupBox1.TabIndex = 32;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Input";
-            this.groupBox1.Enter += new System.EventHandler(this.groupBox1_Enter);
             // 
             // cbFilter
             // 
