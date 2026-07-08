@@ -1,4 +1,5 @@
-﻿using MySqlConnector;
+﻿using SistemInventarisKavling.Domain;
+using SistemInventarisKavling.Repository;
 using System;
 using System.Data;
 using System.Globalization;
@@ -8,8 +9,8 @@ namespace SistemInventarisKavling
 {
     public partial class Form1 : Form
     {
-        string connStr = "server=localhost;database=db_kavling;uid=root;pwd=;";
-        MySqlConnection conn;
+        private readonly KavlingRepository repo =
+        new KavlingRepository();
         int currentPage = 1;
         int pageSize = 5;
         bool sedangFormat = false;
@@ -19,22 +20,24 @@ namespace SistemInventarisKavling
         {
             InitializeComponent();
 
-            conn = new MySqlConnection(connStr);
-
             txtLuas.ReadOnly = true;
-       
+
             txtHarga.KeyPress += txtHarga_KeyPress;
             txtHarga.Leave += txtHarga_Leave;
             txtHarga.TextChanged += txtHarga_TextChanged;
             txtHarga.Enter += txtHarga_Enter;
+
             btnSimpan.Click += btnSimpan_Click;
             btnUbah.Click += btnUbah_Click;
             btnHapus.Click += btnHapus_Click;
             btnReset.Click += btnReset_Click;
             btnCari.Click += btnCari_Click;
+
             btnSortLuas.Click += btnSortLuas_Click;
             btnSortHarga.Click += btnSortHarga_Click;
+
             dgvKavling.CellClick += dgvKavling_CellClick;
+
             txtPanjang.TextChanged += HitungLuas;
             txtLebar.TextChanged += HitungLuas;
         }
@@ -64,41 +67,17 @@ namespace SistemInventarisKavling
 
         private void LoadData()
         {
-            try
-            {
-                if (conn.State == ConnectionState.Closed)
-                    conn.Open();
+            dgvKavling.DataSource = repo.GetAll(currentPage, pageSize);
 
-                int offset = (currentPage - 1) * pageSize;
+            dgvKavling.Columns["Harga"].DefaultCellStyle.Format = "'Rp' #,##0";
 
-                string query =
-                $"SELECT * FROM kavling LIMIT {pageSize} OFFSET {offset}";
+            dgvKavling.Columns["Harga"].DefaultCellStyle.Alignment =
+                DataGridViewContentAlignment.MiddleRight;
 
-                MySqlDataAdapter da =
-                    new MySqlDataAdapter(query, conn);
+            dgvKavling.AutoSizeColumnsMode =
+                     DataGridViewAutoSizeColumnsMode.Fill;
 
-                DataTable dt = new DataTable();
-
-                da.Fill(dt);
-
-                dgvKavling.DataSource = dt;
-                dgvKavling.Columns["harga"].DefaultCellStyle.Format = "'Rp' #,##0";
-                dgvKavling.Columns["harga"].DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleRight;
-                dgvKavling.Columns["harga"].Width = 150;
-                dgvKavling.AutoSizeColumnsMode =
-                DataGridViewAutoSizeColumnsMode.AllCells;
-
-                HitungStatistik();
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show(ex.Message);
-            }
-            finally
-            {
-                if (conn.State == ConnectionState.Open)
-                    conn.Close();
-            }
+            HitungStatistik();
         }
 
         private void HitungLuas(object sender, EventArgs e)
@@ -122,103 +101,97 @@ namespace SistemInventarisKavling
 
             cbBentuk.SelectedIndex = -1;
             cbStatus.SelectedIndex = -1;
+            dgvKavling.ClearSelection();
 
             txtId.Focus();
         }
 
-      
+
 
         private void btnSimpan_Click(object sender, EventArgs e)
         {
+            if (string.IsNullOrWhiteSpace(txtId.Text))
+            {
+                MessageBox.Show("ID Kavling harus diisi.");
+                txtId.Focus();
+                return;
+            }
+
+            if (string.IsNullOrWhiteSpace(txtNama.Text))
+            {
+                MessageBox.Show("Nama Kavling harus diisi.");
+                txtNama.Focus();
+                return;
+            }
+
             try
             {
-                conn.Open();
-
-                string query = @"INSERT INTO kavling
-            (id_kavling,nama_kavling,bentuk,panjang,lebar,luas,harga,status_kavling)
-            VALUES
-            (@id,@nama,@bentuk,@panjang,@lebar,@luas,@harga,@status)";
-
-                MySqlCommand cmd =
-                    new MySqlCommand(query, conn);
-
-                cmd.Parameters.AddWithValue("@id", txtId.Text);
-                cmd.Parameters.AddWithValue("@nama", txtNama.Text);
-                cmd.Parameters.AddWithValue("@bentuk", cbBentuk.Text);
-                cmd.Parameters.AddWithValue("@panjang", txtPanjang.Text);
-                cmd.Parameters.AddWithValue("@lebar", txtLebar.Text);
-                cmd.Parameters.AddWithValue("@luas", txtLuas.Text);
-                string harga = txtHarga.Text
-                              .Replace("Rp", "")
-                              .Replace(".", "")
-                              .Replace(",", "")
-                              .Trim();
-                cmd.Parameters.AddWithValue("@harga", harga);
-                cmd.Parameters.AddWithValue("@status", cbStatus.Text);
-
-                cmd.ExecuteNonQuery();
+                repo.Insert(GetDataForm());
 
                 MessageBox.Show("Data berhasil disimpan");
+
                 LoadData();
+
                 ResetForm();
             }
             catch (Exception ex)
             {
                 MessageBox.Show(ex.Message);
             }
-            finally
-            {
-                conn.Close();
-            }
         }
 
         private void btnUbah_Click(object sender, EventArgs e)
         {
+            if (string.IsNullOrWhiteSpace(txtId.Text))
+            {
+                MessageBox.Show("ID Kavling harus diisi.");
+                txtId.Focus();
+                return;
+            }
+
+            if (string.IsNullOrWhiteSpace(txtNama.Text))
+            {
+                MessageBox.Show("Nama Kavling harus diisi.");
+                txtNama.Focus();
+                return;
+            }
+
             try
             {
-                conn.Open();
+                repo.Update(GetDataForm());
 
-                string query = @"UPDATE kavling SET
-            nama_kavling=@nama,
-            bentuk=@bentuk,
-            panjang=@panjang,
-            lebar=@lebar,
-            luas=@luas,
-            harga=@harga,
-            status_kavling=@status
-            WHERE id_kavling=@id";
+                MessageBox.Show("Data berhasil diubah");
 
-                MySqlCommand cmd =
-                    new MySqlCommand(query, conn);
-
-                cmd.Parameters.AddWithValue("@id", txtId.Text);
-                cmd.Parameters.AddWithValue("@nama", txtNama.Text);
-                cmd.Parameters.AddWithValue("@bentuk", cbBentuk.Text);
-                cmd.Parameters.AddWithValue("@panjang", txtPanjang.Text);
-                cmd.Parameters.AddWithValue("@lebar", txtLebar.Text);
-                cmd.Parameters.AddWithValue("@luas", txtLuas.Text);
-
-                string harga = txtHarga.Text
-                               .Replace("Rp", "")
-                               .Replace(".", "")
-                               .Replace(",", "")
-                               .Trim();
-
-                cmd.Parameters.AddWithValue("@harga", harga);
-                cmd.Parameters.AddWithValue("@status", cbStatus.Text);
-                cmd.ExecuteNonQuery();
-               
                 LoadData();
+
                 ResetForm();
             }
             catch (Exception ex)
             {
                 MessageBox.Show("Gagal mengubah data: " + ex.Message);
             }
-            finally
+        }
+
+
+        private Kavling GetDataForm()
+        {
+            string harga = txtHarga.Text
+                .Replace("Rp", "")
+                .Replace(".", "")
+                .Replace(",", "")
+                .Trim();
+
+            return new Kavling
             {
-                conn.Close();
-            }
+                Id = txtId.Text,
+                Nama = txtNama.Text,
+                Bentuk = cbBentuk.Text,
+                Panjang = double.Parse(txtPanjang.Text),
+                Lebar = double.Parse(txtLebar.Text),
+                Luas = double.Parse(txtLuas.Text),
+                Harga = decimal.Parse(harga),
+                Status = cbStatus.Text
+            };
         }
 
         private void btnHapus_Click(object sender, EventArgs e)
@@ -227,86 +200,42 @@ namespace SistemInventarisKavling
                 "Hapus data ini?",
                 "Konfirmasi",
                 MessageBoxButtons.YesNo,
-                MessageBoxIcon.Question)
-                == DialogResult.Yes)
+                MessageBoxIcon.Question) == DialogResult.Yes)
             {
                 try
                 {
-                    conn.Open();
-
-                    string query =
-                        "DELETE FROM kavling WHERE id_kavling=@id";
-
-                    MySqlCommand cmd =
-                        new MySqlCommand(query, conn);
-
-                    cmd.Parameters.AddWithValue("@id", txtId.Text);
-
-                    cmd.ExecuteNonQuery();
+                    repo.Delete(txtId.Text);
 
                     MessageBox.Show("Data berhasil dihapus");
 
                     LoadData();
+
                     ResetForm();
                 }
                 catch (Exception ex)
                 {
                     MessageBox.Show(ex.Message);
                 }
-                finally
-                {
-                    conn.Close();
-                }
             }
         }
 
         private void btnCari_Click(object sender, EventArgs e)
         {
-            try
-            {
-                conn.Open();
+            dgvKavling.DataSource = repo.Search(txtCari.Text);
 
-                string query = @"SELECT * FROM kavling
-            WHERE id_kavling LIKE @cari
-            OR nama_kavling LIKE @cari";
-
-                MySqlDataAdapter da =
-                    new MySqlDataAdapter(query, conn);
-
-                da.SelectCommand.Parameters.AddWithValue(
-                    "@cari",
-                    "%" + txtCari.Text + "%");
-
-                DataTable dt = new DataTable();
-
-                da.Fill(dt);
-
-                dgvKavling.DataSource = dt;
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show(ex.Message);
-            }
-            finally
-            {
-                conn.Close();
-            }
+            HitungStatistik();
         }
-
         private void btnSortLuas_Click(object sender, EventArgs e)
         {
-            DataTable dt =
-                (DataTable)dgvKavling.DataSource;
+            dgvKavling.DataSource = repo.SortLuas();
 
-            dt.DefaultView.Sort = "luas DESC";
+            HitungStatistik();
         }
-
         private void btnSortHarga_Click(object sender, EventArgs e)
         {
-            DataTable dt =
-                (DataTable)dgvKavling.DataSource;
+            dgvKavling.DataSource = repo.SortHarga();
 
-            dt.DefaultView.Sort = "harga DESC";
+            HitungStatistik();
         }
 
         private void dgvKavling_CellClick(object sender, DataGridViewCellEventArgs e)
@@ -314,25 +243,26 @@ namespace SistemInventarisKavling
             if (e.RowIndex >= 0)
             {
                 DataGridViewRow row = dgvKavling.Rows[e.RowIndex];
+                txtId.Text = row.Cells["Id"].Value.ToString();
+                txtNama.Text = row.Cells["Nama"].Value.ToString();
+                cbBentuk.Text = row.Cells["Bentuk"].Value.ToString();
+                txtPanjang.Text = row.Cells["Panjang"].Value.ToString();
+                txtLebar.Text = row.Cells["Lebar"].Value.ToString();
+                txtLuas.Text = row.Cells["Luas"].Value.ToString();
+                cbStatus.Text = row.Cells["Status"].Value.ToString();
 
-                txtId.Text = row.Cells["id_kavling"].Value.ToString();
-                txtNama.Text = row.Cells["nama_kavling"].Value.ToString();
-                cbBentuk.Text = row.Cells["bentuk"].Value.ToString();
-                txtPanjang.Text = row.Cells["panjang"].Value.ToString();
-                txtLebar.Text = row.Cells["lebar"].Value.ToString();
-                txtLuas.Text = row.Cells["luas"].Value.ToString();
-
-                if (row.Cells["harga"].Value != DBNull.Value)
+                if (row.Cells["Harga"].Value != null)
                 {
-                    decimal harga = Convert.ToDecimal(row.Cells["harga"].Value);
-                    txtHarga.Text = "Rp " + harga.ToString("N0", new CultureInfo("id-ID"));
+                    decimal harga =
+                        Convert.ToDecimal(row.Cells["Harga"].Value);
+
+                    txtHarga.Text =
+                        "Rp " + harga.ToString("N0", new CultureInfo("id-ID"));
                 }
                 else
                 {
-                    txtHarga.Text = "";
+                    txtHarga.Clear();
                 }
-
-                cbStatus.Text = row.Cells["status_kavling"].Value.ToString();
             }
         }
 
@@ -350,11 +280,10 @@ namespace SistemInventarisKavling
                 totalData++;
 
                 totalLuas +=
-                    Convert.ToDouble(row.Cells["luas"].Value);
+                    Convert.ToDouble(row.Cells["Luas"].Value);
 
                 string status =
-                    row.Cells["status_kavling"]
-                    .Value.ToString();
+                    row.Cells["Status"].Value.ToString();
 
                 if (status == "Terjual")
                     terjual++;
@@ -378,17 +307,10 @@ namespace SistemInventarisKavling
 
         private void btnNext_Click(object sender, EventArgs e)
         {
-            conn.Open();
+            int totalData = repo.GetTotalData();
 
-            string query = "SELECT COUNT(*) FROM kavling";
-
-            MySqlCommand cmd = new MySqlCommand(query, conn);
-
-            int totalData = Convert.ToInt32(cmd.ExecuteScalar());
-
-            conn.Close();
-
-            int totalHalaman = (int)Math.Ceiling((double)totalData / pageSize);
+            int totalHalaman =
+                (int)Math.Ceiling((double)totalData / pageSize);
 
             if (currentPage < totalHalaman)
             {
@@ -421,11 +343,11 @@ namespace SistemInventarisKavling
             }
         }
 
-       
+
 
         private void dgvKavling_CellContentClick(object sender, DataGridViewCellEventArgs e)
         {
-            
+
         }
 
         private void btnReset_Click(object sender, EventArgs e)
@@ -456,58 +378,13 @@ namespace SistemInventarisKavling
         private void cbFilter_SelectedIndexChanged(object sender, EventArgs e)
         {
             currentPage = 1;
+
             lblHalaman.Text = "Halaman 1";
 
-            try
-            {
-                conn.Open();
+            dgvKavling.DataSource =
+              repo.Filter(cbFilter.Text, currentPage, pageSize);
 
-                int offset = (currentPage - 1) * pageSize;
-
-                string query = "SELECT * FROM kavling";
-
-                switch (cbFilter.Text)
-                {
-                    case "Semua Data":
-                        break;
-
-                    case "Status: Tersedia":
-                        query += " WHERE status_kavling='Tersedia'";
-                        break;
-
-                    case "Status: Terjual":
-                        query += " WHERE status_kavling='Terjual'";
-                        break;
-
-                    case "Harga Tertinggi":
-                        query += " ORDER BY harga DESC";
-                        break;
-
-                    case "Harga Terendah":
-                        query += " ORDER BY harga ASC";
-                        break;
-                }
-
-                // Tambahkan pagination
-                query += $" LIMIT {pageSize} OFFSET {offset}";
-
-                MySqlDataAdapter da = new MySqlDataAdapter(query, conn);
-                DataTable dt = new DataTable();
-
-                da.Fill(dt);
-
-                dgvKavling.DataSource = dt;
-
-                lblHalaman.Text = "Halaman " + currentPage;
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show(ex.Message);
-            }
-            finally
-            {
-                conn.Close();
-            }
+            HitungStatistik();
         }
 
         private void cbPageSize_SelectedIndexChanged(object sender, EventArgs e)
