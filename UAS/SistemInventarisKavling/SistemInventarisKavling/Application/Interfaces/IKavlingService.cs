@@ -1,9 +1,9 @@
 ﻿using System.Collections.Generic;
 using SistemInventarisKavling.Domain;
 
-namespace SistemInventarisKavling.Repository
+namespace SistemInventarisKavling.Application.Interfaces
 {
-    public interface IKavlingRepository
+    public interface IKavlingService
     {
         List<Kavling> GetAll(int currentPage, int pageSize);
 
